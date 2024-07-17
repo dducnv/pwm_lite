@@ -1,18 +1,12 @@
-import 'dart:ui';
-
 import 'package:cyber_safe/core/domains.dart';
 import 'package:cyber_safe/core/utils.dart';
 import 'package:cyber_safe/ui/provider.dart';
-import 'package:cyber_safe/ui/resource/brand_logo.dart';
 import 'package:cyber_safe/ui/resource/language/definitions.dart';
 import 'package:cyber_safe/ui/resource/size_text_icon.dart';
 import 'package:cyber_safe/ui/route.dart';
 import 'package:cyber_safe/ui/screens.dart';
 import 'package:cyber_safe/ui/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_styled_toast/flutter_styled_toast.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
 mixin HomeMixin {}
@@ -407,46 +401,17 @@ extension HomeExtension on HomeMixin {
                                         borderRadius:
                                             BorderRadius.circular(15)),
                                     child: Center(
-                                      child: account.icon == "default" ||
-                                              account.icon == null ||
-                                              allBranchLogos
-                                                      .firstWhere((element) =>
-                                                          element
-                                                              .branchLogoSlug ==
-                                                          account.icon)
-                                                      .branchName ==
-                                                  null
-                                          ? Text(
-                                              decryptInfo(account.title)[0]
-                                                  .toUpperCase(),
-                                              style: TextStyle(
-                                                fontSize: 20.sp,
-                                                fontWeight: FontWeight.bold,
-                                                color: isDarkMode
-                                                    ? Colors.white
-                                                    : Colors.black,
-                                              ))
-                                          : Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: SvgPicture.asset(
-                                                width: 50.w,
-                                                height: 50.h,
-                                                isDarkMode
-                                                    ? allBranchLogos
-                                                        .firstWhere((element) =>
-                                                            element
-                                                                .branchLogoSlug ==
-                                                            account.icon)
-                                                        .branchLogoPathDarkMode!
-                                                    : allBranchLogos
-                                                        .firstWhere((element) =>
-                                                            element
-                                                                .branchLogoSlug ==
-                                                            account.icon)
-                                                        .branchLogoPathLightMode!,
-                                              ),
-                                            ),
+                                      child: Text(
+                                        decryptInfo(account.title)[0]
+                                            .toUpperCase(),
+                                        style: TextStyle(
+                                          fontSize: 20.sp,
+                                          fontWeight: FontWeight.bold,
+                                          color: isDarkMode
+                                              ? Colors.white
+                                              : Colors.black,
+                                        ),
+                                      ),
                                     ),
                                   ),
                                   title: Text(

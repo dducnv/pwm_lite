@@ -40,15 +40,11 @@ class AppGenerateRoute {
       case RoutePaths.categoryManagerRoute:
         widget = const CategoryManagerScreen();
         break;
-      case RoutePaths.totpManagerRoute:
-        widget = const TOTPManagerScreen();
-        break;
+
       case RoutePaths.passGenRoute:
         widget = const PassGenScreen();
         break;
-      case RoutePaths.securityCheckRoute:
-        widget = const SecurityCheckScreen();
-        break;
+
       case RoutePaths.privacyPolicyRoute:
         widget = const PrivacyPolicyScreen();
         break;

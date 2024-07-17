@@ -10,7 +10,6 @@ import 'package:cyber_safe/core/env.dart';
 import 'package:cyber_safe/core/utils.dart';
 import 'package:cyber_safe/ui/base.dart';
 import 'package:cyber_safe/ui/provider.dart';
-import 'package:cyber_safe/ui/resource/brand_logo.dart';
 import 'package:cyber_safe/ui/resource/language/definitions/setting_manager_lang_definition.dart';
 import 'package:cyber_safe/ui/screens.dart';
 import 'package:downloadsfolder/downloadsfolder.dart';
@@ -79,9 +78,7 @@ class SettingViewModel extends BaseViewModel {
                 icon: account.icon,
                 passwordUpdatedAt: account.passwordUpdatedAt,
                 categoryOjbModel: account.category.target,
-                totpOjbModel: account.totp.target,
                 customFieldOjbModel: account.customFields,
-                passwordHistoriesList: account.passwordHistories,
               ),
             );
           }
@@ -291,24 +288,11 @@ class SettingViewModel extends BaseViewModel {
         // Update existing account if necessary
         bool updated = false;
 
-        if (existingAccount.totpOjbModel == null &&
-            newAccount.totpOjbModel != null) {
-          existingAccount.totpOjbModel = newAccount.totpOjbModel;
-          updated = true;
-        }
-
         // Add custom fields from new account if they exist
         if (newAccount.customFields.isNotEmpty) {
           existingAccount.customFields.addAll(newAccount.customFields);
           updated = true;
         }
-
-        if (newAccount.passwordHistories.isNotEmpty) {
-          existingAccount.passwordHistories
-              .addAll(newAccount.passwordHistories);
-          updated = true;
-        }
-
         if (updated) {
           Result<bool, Exception> saveResult =
               await _accountUsecase.updateAccount(existingAccount);
@@ -406,9 +390,7 @@ class SettingViewModel extends BaseViewModel {
         final String passwordEncrypted =
             encryptField(password, Env.passwordEncryptKey);
         final String noteEncrypted = encryptField(url, Env.infoEncryptKey);
-
-        String splitTitle = title.replaceAll(".", " ");
-        String iconNew = getIcon(splitTitle);
+        String iconNew = "default";
 
         AccountOjbModel newAccount = AccountOjbModel(
           title: appNameEncrypted,
@@ -452,17 +434,6 @@ class SettingViewModel extends BaseViewModel {
     }
   }
 
-  String getIcon(
-    String keyWork,
-  ) {
-    for (var icon in allBranchLogos) {
-      if (keyWork.toLowerCase().contains(icon.branchLogoSlug!.toLowerCase())) {
-        return icon.branchLogoSlug ?? "default";
-      }
-    }
-    return "default";
-  }
-
   String encryptField(String value, String key) {
     if (value.isEmpty) return "";
     return EncryptData.instance.encryptFernet(
@@ -483,11 +454,6 @@ class SettingViewModel extends BaseViewModel {
       icon: account.icon ?? "",
     );
 
-    if (account.totpOjbModel != null) {
-      accountNew.totp.target =
-          TOTPOjbModel(secretKey: account.totpOjbModel!.secretKey);
-    }
-
     if (account.customFieldOjbModel != null) {
       for (var customField in account.customFieldOjbModel!) {
         final mewCustomField = AccountCustomFieldOjbModel(
@@ -497,16 +463,6 @@ class SettingViewModel extends BaseViewModel {
           typeField: customField.typeField,
         );
         accountNew.customFields.add(mewCustomField);
-      }
-    }
-
-    if (account.passwordHistoriesList != null) {
-      for (var passwordHistory in account.passwordHistoriesList!) {
-        final newPasswordHistory = PasswordHistory(
-          password: passwordHistory.password,
-          createdAt: passwordHistory.createdAt,
-        );
-        accountNew.passwordHistories.add(newPasswordHistory);
       }
     }
 

@@ -28,9 +28,7 @@ dependencies:
   get_it: 7.7.0
   local_auth: 2.2.0
   file_picker: 8.0.3
-  qr_code_scanner: 1.0.1
   secure_application: 4.0.1
-  timezone: 0.9.3
   pin_code_fields: 8.0.1
   flutter_styled_toast: 2.2.1
   downloadsfolder: 1.1.0
@@ -65,7 +63,5 @@ flutter:
     - assets/images/
     - assets/animations/
     - assets/images/icons/
-    - assets/images/brand_icons/
-    - assets/images/brand_icons/banks/
     - assets/markdown/privacy_policy/
     - assets/markdown/terms_of_service/

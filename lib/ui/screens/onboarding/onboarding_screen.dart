@@ -51,10 +51,9 @@ class OnboardingScreenState extends State<OnboardingScreen> {
         dataShared.isUpdatedVersionEncryptKey.value = true;
       }
     }
-    await Future.delayed(const Duration(milliseconds: 2500), () {
+    await Future.delayed(const Duration(milliseconds: 500), () {
       if (isFistTime != null) {
         checkIsRegister();
-        FlutterNativeSplash.remove();
       } else {
         FlutterNativeSplash.remove();
       }

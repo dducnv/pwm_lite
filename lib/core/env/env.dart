@@ -16,9 +16,6 @@ abstract class Env {
   @EnviedField(varName: 'FILE_ENCRYPT_KEY', obfuscate: true)
   static final String fileEncryptKey = _Env.fileEncryptKey;
 
-  @EnviedField(varName: 'TOTP_ENCRYPT_KEY', obfuscate: true)
-  static final String totpEncryptKey = _Env.totpEncryptKey;
-
   //old_key
   @EnviedField(varName: 'OLD_PIN_CODE_ENCRYPT_KEY', obfuscate: true)
   static final String oldPinCodeKeyEncrypt = _Env.oldPinCodeKeyEncrypt;
@@ -31,9 +28,6 @@ abstract class Env {
 
   @EnviedField(varName: 'OLD_FILE_ENCRYPT_KEY', obfuscate: true)
   static final String oldFileEncryptKey = _Env.oldFileEncryptKey;
-
-  @EnviedField(varName: 'OLD_TOTP_ENCRYPT_KEY', obfuscate: true)
-  static final String oldTotpEncryptKey = _Env.oldTotpEncryptKey;
 
   @EnviedField(varName: 'VERSION_KEY', obfuscate: true)
   static final String versionKey = _Env.versionKey;

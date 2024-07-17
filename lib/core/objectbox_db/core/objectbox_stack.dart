@@ -13,8 +13,8 @@ class ObjectboxStack {
   Future<ObjectboxStack> create() async {
     _store = await openStore(
         directory: p.join(
-            (await getApplicationDocumentsDirectory()).path, "cyber_safe"),
-        macosApplicationGroup: "group.duc_app_lab_ind.cyber_safe");
+            (await getApplicationDocumentsDirectory()).path, "cybersafe_lmt"),
+        macosApplicationGroup: "group.duc_app_lab_ind.cybersafe_lmt");
     return ObjectboxStack._create(_store);
   }
 

@@ -22,8 +22,6 @@ class AccountOjbModel {
 
   CategoryOjbModel? categoryOjbModel;
   List<AccountCustomFieldOjbModel>? customFieldOjbModel;
-  TOTPOjbModel? totpOjbModel;
-  List<PasswordHistory>? passwordHistoriesList;
 
   AccountOjbModel(
       {this.id = 0,
@@ -36,9 +34,7 @@ class AccountOjbModel {
       DateTime? createdAt,
       this.updatedAt,
       this.categoryOjbModel,
-      this.customFieldOjbModel,
-      this.passwordHistoriesList,
-      this.totpOjbModel}) {
+      this.customFieldOjbModel}) {
     this.createdAt = createdAt ?? DateTime.now();
     this.passwordUpdatedAt = passwordUpdatedAt ?? DateTime.now();
     updatedAt = updatedAt ?? DateTime.now();
@@ -76,13 +72,6 @@ class AccountOjbModel {
               .map((e) => AccountCustomFieldOjbModel.fromJson(e))
               .toList()
           : null,
-      passwordHistoriesList: json['passwordHistories'] != null
-          ? (json['passwordHistories'] as List)
-              .map((e) => PasswordHistory.fromJson(e))
-              .toList()
-          : null,
-      totpOjbModel:
-          json['totp'] != null ? TOTPOjbModel.fromJson(json['totp']) : null,
     );
   }
 
@@ -97,21 +86,13 @@ class AccountOjbModel {
       'notes': notes,
       'icon': icon,
       "customFields": customFieldOjbModel?.map((e) => e.toJson()).toList(),
-      "totp": totpOjbModel?.toJson(),
       'category': categoryOjbModel?.toJson(),
       'passwordUpdatedAt': passwordUpdatedAt?.toIso8601String() ??
           DateTime.now().toIso8601String(),
-      'passwordHistories':
-          passwordHistoriesList?.map((e) => e.toJson()).toList(),
     };
   }
 
   final category = ToOne<CategoryOjbModel>();
   @Backlink("account")
   final customFields = ToMany<AccountCustomFieldOjbModel>();
-
-  @Backlink("account")
-  final passwordHistories = ToMany<PasswordHistory>();
-
-  final totp = ToOne<TOTPOjbModel>();
 }

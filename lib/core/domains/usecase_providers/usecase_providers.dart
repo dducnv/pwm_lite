@@ -3,6 +3,5 @@ import 'package:cyber_safe/core/domains.dart';
 abstract class UsecaseProvider {
   AccountUsecase getAccountUseCase();
   CategoryUsecase getCategoryUseCase();
-  TOTPUsecase getTOTPUseCase();
   AccountCustomFieldUsecase getAccountCustomFieldUseCase();
 }

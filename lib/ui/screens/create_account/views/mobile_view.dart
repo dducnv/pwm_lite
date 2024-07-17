@@ -1,15 +1,9 @@
 import 'package:cyber_safe/core/utils.dart';
-import 'package:cyber_safe/ui/provider.dart';
-import 'package:cyber_safe/ui/resource/brand_logo.dart';
 import 'package:cyber_safe/ui/resource/language/definitions.dart';
 import 'package:cyber_safe/ui/screens/create_account/extentions.dart';
 import 'package:flutter/material.dart';
-import 'package:cyber_safe/core/services.dart';
 import 'package:cyber_safe/ui/screens.dart';
-import 'package:cyber_safe/ui/screens/create_account/widgets.dart';
 import 'package:cyber_safe/ui/widgets.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:provider/provider.dart';
 import 'package:password_strength_checker/password_strength_checker.dart';
 
 class MobileView extends StatefulWidget {
@@ -37,20 +31,11 @@ class _MobileViewState extends State<MobileView> with CreateAccountMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        floatingActionButton: DoubleValueListenBuilder(
-          widget.viewModel.isEnterOTPFromKeyboard,
-          widget.viewModel.keyAuthentication,
-          builder: (context, isEnterOTPFromKeyboard, keyAuthentication, child) {
-            return Visibility(
-              visible: !isEnterOTPFromKeyboard || keyAuthentication.isNotEmpty,
-              child: FloatingActionButton(
-                onPressed: () async {
-                  await widget.viewModel.handleAddAccount(context);
-                },
-                child: const Icon(Icons.check),
-              ),
-            );
+        floatingActionButton: FloatingActionButton(
+          onPressed: () async {
+            await widget.viewModel.handleAddAccount(context);
           },
+          child: const Icon(Icons.check),
         ),
         appBar: AppbarCustom(
           title: getText(context, CreateAccountLangDif.taoTaiKhoan),
@@ -66,70 +51,6 @@ class _MobileViewState extends State<MobileView> with CreateAccountMixin {
               child: Column(
                 children: [
                   ValueListenableBuilder(
-                      valueListenable: widget.viewModel.branchLogoSelected,
-                      builder: (context, value, child) {
-                        bool isDarkMode =
-                            Provider.of<RootPR>(context, listen: false)
-                                    .themeMode ==
-                                ThemeMode.dark;
-
-                        return Container(
-                          width: 70.w,
-                          height: 70.h,
-                          clipBehavior: Clip.hardEdge,
-                          decoration: BoxDecoration(
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .secondaryContainer,
-                              borderRadius: BorderRadius.circular(15)),
-                          child: InkWell(
-                            onTap: () {
-                              selectIconBottomSheet(context, widget.viewModel);
-                            },
-                            borderRadius: BorderRadius.circular(15),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: value.branchLogoSlug == "default"
-                                  ? Center(
-                                      child: Icon(
-                                        Icons.add,
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .primary,
-                                      ),
-                                    )
-                                  : SvgPicture.asset(
-                                      isDarkMode
-                                          ? value.branchLogoPathDarkMode!
-                                          : value.branchLogoPathLightMode!,
-                                    ),
-                            ),
-                          ),
-                        );
-                      }),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  InkWell(
-                    borderRadius: BorderRadius.circular(10),
-                    onTap: () {
-                      selectIconBottomSheet(context, widget.viewModel);
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 4),
-                      child: Text(
-                        getText(context, CreateAccountLangDif.chonIcon),
-                        style: TextStyle(
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.w600,
-                            color: Theme.of(context).colorScheme.primary),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  ValueListenableBuilder(
                     valueListenable: widget.viewModel.isRequiredAppName,
                     builder: (_, value, child) {
                       return CustomTextField(
@@ -143,28 +64,6 @@ class _MobileViewState extends State<MobileView> with CreateAccountMixin {
                         onChanged: (p0) {
                           if (p0.isNotEmpty) {
                             widget.viewModel.isRequiredAppName.value = false;
-
-                            //bounce
-
-                            void bounce() {
-                              Future.delayed(const Duration(milliseconds: 300),
-                                  () {
-                                for (var icon in allBranchLogos) {
-                                  final pattern = icon.keyWords!
-                                      .map((k) => RegExp.escape(k))
-                                      .join('|');
-                                  final regex =
-                                      RegExp(pattern, caseSensitive: false);
-                                  if (regex.hasMatch(p0)) {
-                                    widget.viewModel.branchLogoSelected.value =
-                                        icon;
-                                    break;
-                                  }
-                                }
-                              });
-                            }
-
-                            bounce();
                           } else {
                             widget.viewModel.isRequiredAppName.value = true;
                           }
@@ -251,7 +150,7 @@ class _MobileViewState extends State<MobileView> with CreateAccountMixin {
                                 ),
                                 IconButton(
                                   style: ButtonStyle(
-                                      minimumSize: MaterialStateProperty.all(
+                                      minimumSize: WidgetStateProperty.all(
                                           Size(25.w, 25.h))),
                                   onPressed: () {
                                     if (widget.viewModel.txtPassword.text
@@ -332,7 +231,7 @@ class _MobileViewState extends State<MobileView> with CreateAccountMixin {
                                       height: 12.h,
                                       inactiveBorderColor: Theme.of(context)
                                           .colorScheme
-                                          .surfaceVariant,
+                                          .surfaceContainerHighest,
                                       showStatusWidget: false),
                             ),
                           ],
@@ -379,192 +278,6 @@ class _MobileViewState extends State<MobileView> with CreateAccountMixin {
                   const SizedBox(
                     height: 10,
                   ),
-                  DoubleValueListenBuilder<bool, String>(
-                    widget.viewModel.isEnterOTPFromKeyboard,
-                    widget.viewModel.keyAuthentication,
-                    builder:
-                        (_, isEnterOTPFromKeyboard, keyAuthentication, child) {
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(left: 5.w),
-                            child: Text(
-                              getText(context,
-                                  CreateAccountLangDif.khoaXacThucHaiLop),
-                              style: TextStyle(
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.grey[800]),
-                            ),
-                          ),
-                          widget.viewModel.keyAuthentication.value.isNotEmpty
-                              ? Row(
-                                  children: [
-                                    Expanded(
-                                      child: CardCustomWidget(
-                                        child: OtpTextWithCountdown(
-                                          keySecret: keyAuthentication,
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      width: 10,
-                                    ),
-                                    IconButton(
-                                      onPressed: () {
-                                        widget.viewModel.handleClearKeyAuth();
-                                      },
-                                      icon: Icon(
-                                        Icons.cancel_outlined,
-                                        size: 24.sp,
-                                      ),
-                                    )
-                                  ],
-                                )
-                              : Row(
-                                  children: [
-                                    Expanded(
-                                      child: isEnterOTPFromKeyboard
-                                          ? CustomTextField(
-                                              requiredTextField: true,
-                                              controller:
-                                                  widget.viewModel.txtKeySetOTP,
-                                              textInputAction:
-                                                  TextInputAction.done,
-                                              textAlign: TextAlign.start,
-                                              onFieldSubmitted: (value) {
-                                                _handleAddOtpKey(widget
-                                                    .viewModel
-                                                    .txtKeySetOTP
-                                                    .text);
-                                              },
-                                              autoFocus: true,
-                                              hintText: getText(
-                                                  context,
-                                                  CreateAccountLangDif
-                                                      .nhapKhoaXacThucTOTP),
-                                              isObscure: false,
-                                              maxLines: 1,
-                                              focusNode: focus,
-                                            )
-                                          : CustomButtonWidget(
-                                              margin: const EdgeInsets.all(0),
-                                              border: Border.all(
-                                                  color: Theme.of(context)
-                                                      .colorScheme
-                                                      .surfaceVariant),
-                                              onPressed: () async {
-                                                final uri = await Navigator.of(
-                                                        context)
-                                                    .push(MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            const QrcodeScaner()));
-                                                if (uri != null) {
-                                                  var otpCustom =
-                                                      OTPCustom.fromUri(
-                                                              uri.toString())
-                                                          .toJson();
-
-                                                  widget.viewModel
-                                                      .handleShowTextFieldEnterOTP();
-                                                  widget.viewModel.txtKeySetOTP
-                                                          .text =
-                                                      otpCustom['secret'];
-                                                  widget
-                                                          .viewModel
-                                                          .keyAuthentication
-                                                          .value =
-                                                      otpCustom['secret'];
-
-                                                  widget.viewModel.txtAppName
-                                                          .text =
-                                                      otpCustom['issuer'];
-
-                                                  widget.viewModel.txtUsername
-                                                          .text =
-                                                      otpCustom['accountName'];
-
-                                                  for (var icon
-                                                      in allBranchLogos) {
-                                                    final pattern = icon
-                                                        .keyWords!
-                                                        .map((k) =>
-                                                            RegExp.escape(k))
-                                                        .join('|');
-                                                    final regex = RegExp(
-                                                        pattern,
-                                                        caseSensitive: false);
-                                                    if (regex.hasMatch(
-                                                        otpCustom['issuer'])) {
-                                                      widget
-                                                          .viewModel
-                                                          .branchLogoSelected
-                                                          .value = icon;
-                                                      break;
-                                                    }
-                                                  }
-                                                }
-                                              },
-                                              backgroundColor: Theme.of(context)
-                                                  .colorScheme
-                                                  .secondaryContainer,
-                                              text: "",
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  const SizedBox(
-                                                    width: 10,
-                                                  ),
-                                                  Icon(
-                                                      Icons
-                                                          .qr_code_scanner_rounded,
-                                                      size: 24.sp,
-                                                      color: Theme.of(context)
-                                                          .colorScheme
-                                                          .primary),
-                                                  const SizedBox(
-                                                    width: 10,
-                                                  ),
-                                                  Text(
-                                                    getText(
-                                                        context,
-                                                        CreateAccountLangDif
-                                                            .themKhoaXacThucHaiLop),
-                                                    style: TextStyle(
-                                                        color: Theme.of(context)
-                                                            .colorScheme
-                                                            .primary,
-                                                        fontSize: 14.sp),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                    ),
-                                    const SizedBox(
-                                      width: 10,
-                                    ),
-                                    IconButton(
-                                        onPressed: () {
-                                          widget.viewModel
-                                              .handleShowTextFieldEnterOTP();
-                                        },
-                                        icon: Icon(
-                                          isEnterOTPFromKeyboard == true
-                                              ? Icons.cancel_outlined
-                                              : Icons.keyboard_alt_outlined,
-                                          size: 24.sp,
-                                        )),
-                                  ],
-                                ),
-                        ],
-                      );
-                    },
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
                   CustomTextField(
                     requiredTextField: false,
                     titleTextField:
@@ -594,7 +307,9 @@ class _MobileViewState extends State<MobileView> with CreateAccountMixin {
                       }),
                   CustomButtonWidget(
                     border: Border.all(
-                        color: Theme.of(context).colorScheme.surfaceVariant),
+                        color: Theme.of(context)
+                            .colorScheme
+                            .surfaceContainerHighest),
                     onPressed: () {
                       bottomSheetAddCustomField(
                         context,
@@ -640,29 +355,6 @@ class _MobileViewState extends State<MobileView> with CreateAccountMixin {
             ),
           ),
         ));
-  }
-
-  void _handleAddOtpKey(String value) {
-    final trimKey = value.replaceAll(" ", "").replaceAll("-", "").trim();
-    if (OTPCustom.isKeyValid(trimKey) == false) {
-      showDialog(
-          context: context,
-          builder: (_) => AlertDialog(
-                title: Text(getText(context, CreateAccountLangDif.thongBao)),
-                content:
-                    Text(getText(context, CreateAccountLangDif.keyKhongHopLe)),
-                actions: [
-                  TextButton(
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                      child: const Text("OK"))
-                ],
-              ));
-      return;
-    } else {
-      widget.viewModel.keyAuthentication.value = trimKey;
-    }
   }
 
   Future<void> _toGenPass() {

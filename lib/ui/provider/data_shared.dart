@@ -28,8 +28,6 @@ class DataShared extends ChangeNotifier {
   final ValueNotifier<List<CategoryOjbModel>> categoryHomeList =
       ValueNotifier([]);
 
-  final ValueNotifier<List<AccountOjbModel>> totpList = ValueNotifier([]);
-
   Future<void> getCategories() async {
     try {
       _categoryUsecase.getCategories().then((value) {
@@ -52,9 +50,6 @@ class DataShared extends ChangeNotifier {
         if (value.isSuccess) {
           final accounts = value.data ?? [];
           accountList.value = [...accounts];
-          totpList.value = accounts
-              .where((element) => element.totp.target?.secretKey != null)
-              .toList();
         } else {
           customLogger(msg: "${value.error}", typeLogger: TypeLogger.error);
         }

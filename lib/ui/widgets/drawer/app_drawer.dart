@@ -49,32 +49,6 @@ class AppDrawer extends StatelessWidget {
             ),
             ListTile(
               leading: Icon(
-                Icons.key_rounded,
-                size: 24.sp,
-              ),
-              title: Text(getText(context, HomeLangDifinition.quanLyTotp),
-                  style: drawerTitleStyle),
-              onTap: () {
-                Navigator.of(context).pop();
-                Navigator.of(context).pushNamed(RoutePaths.totpManagerRoute);
-              },
-            ),
-            ListTile(
-              leading: Icon(
-                Icons.security_rounded,
-                size: 24.sp,
-              ),
-              title: Text(
-                getText(context, HomeLangDifinition.kiemTraBaoMat),
-                style: drawerTitleStyle,
-              ),
-              onTap: () {
-                Navigator.of(context).pop();
-                Navigator.of(context).pushNamed(RoutePaths.securityCheckRoute);
-              },
-            ),
-            ListTile(
-              leading: Icon(
                 Icons.loop_rounded,
                 size: 24.sp,
               ),

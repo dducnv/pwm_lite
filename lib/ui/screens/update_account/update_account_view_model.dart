@@ -4,7 +4,6 @@ import 'package:cyber_safe/core/env.dart';
 import 'package:cyber_safe/core/utils.dart';
 import 'package:cyber_safe/ui/base.dart';
 import 'package:cyber_safe/ui/provider.dart';
-import 'package:cyber_safe/ui/resource/brand_logo.dart';
 import 'package:cyber_safe/ui/resource/language/definitions.dart';
 import 'package:cyber_safe/ui/screens.dart';
 import 'package:cyber_safe/ui/widgets.dart';
@@ -14,12 +13,10 @@ import 'package:password_strength_checker/password_strength_checker.dart';
 class UpdateAccountViewModel extends BaseViewModel {
   final CategoryUsecase categoryUsecase;
   final AccountUsecase accountUsecase;
-  final TOTPUsecase totpUsecase;
 
   UpdateAccountViewModel({
     required this.accountUsecase,
     required this.categoryUsecase,
-    required this.totpUsecase,
   });
 
   final TextEditingController txtAppName = TextEditingController();
@@ -32,14 +29,11 @@ class UpdateAccountViewModel extends BaseViewModel {
   final TextEditingController txtPassword = TextEditingController();
   final passNotifier = ValueNotifier<PasswordStrength?>(null);
 
-  final TextEditingController txtKeySetOTP = TextEditingController();
   final TextEditingController txtNote = TextEditingController();
   final TextEditingController txtCategoryName = TextEditingController();
 
   ValueNotifier<List<DynamicTextField>> dynamicTextFieldNotifier =
       ValueNotifier<List<DynamicTextField>>([]);
-
-  ValueNotifier<bool> isEnterOTPFromKeyboard = ValueNotifier<bool>(false);
 
   List<TypeTextField> typeTextFields = [
     TypeTextField(
@@ -51,8 +45,6 @@ class UpdateAccountViewModel extends BaseViewModel {
             CreateAccountLangDif.vanBanBaoMat),
         type: 'password'),
   ];
-
-  ValueNotifier<String> keyAuthentication = ValueNotifier<String>("");
 
   ValueNotifier<TypeTextField> typeTextFieldSelected =
       ValueNotifier<TypeTextField>(
@@ -75,12 +67,6 @@ class UpdateAccountViewModel extends BaseViewModel {
   );
   final ValueNotifier<bool> isRequiredSelectCategory =
       ValueNotifier<bool>(false);
-  ValueNotifier<BranchLogo> branchLogoSelected = ValueNotifier<BranchLogo>(
-    BranchLogo(
-      [],
-      "default",
-    ),
-  );
 
   late AccountOjbModel account;
 
@@ -88,15 +74,7 @@ class UpdateAccountViewModel extends BaseViewModel {
 
   ValueNotifier<bool> isLoadding = ValueNotifier(false);
 
-  void handleShowTextFieldEnterOTP() {
-    isEnterOTPFromKeyboard.value = !isEnterOTPFromKeyboard.value;
-    setState(ViewState.busy);
-  }
-
   void handleClearKeyAuth() {
-    keyAuthentication.value = "";
-    txtKeySetOTP.text = "";
-    isEnterOTPFromKeyboard = ValueNotifier<bool>(false);
     notifyListeners();
   }
 
@@ -131,40 +109,16 @@ class UpdateAccountViewModel extends BaseViewModel {
     }
 
     if (decryptPassword(account.password ?? "") != txtPassword.text) {
-      String oldPassword = account.password ?? "";
       account.password = encryptField(txtPassword.text, Env.passwordEncryptKey);
       account.passwordUpdatedAt = DateTime.now();
-      accountUsecase.addPasswordHistory(account, oldPassword);
     }
 
     if (decryptInfo(account.notes ?? "") != txtNote.text) {
       account.notes = encryptField(txtNote.text, Env.infoEncryptKey);
     }
 
-    if (account.icon != branchLogoSelected.value.branchLogoSlug) {
-      account.icon = branchLogoSelected.value.branchLogoSlug;
-    }
-
     if (account.category.targetId != categorySelected.value.id) {
       account.category.target = categorySelected.value;
-    }
-
-    if (keyAuthentication.value.isNotEmpty && account.totp.target == null) {
-      account.totp.target = TOTPOjbModel(
-        secretKey: encryptField(keyAuthentication.value, Env.totpEncryptKey),
-      );
-      totpUsecase.saveTOTP(account.totp.target!);
-    } else if (keyAuthentication.value.isNotEmpty &&
-        account.totp.target != null &&
-        decryptTOTPKey(account.totp.target!.secretKey) !=
-            keyAuthentication.value) {
-      account.totp.target!.secretKey =
-          encryptField(keyAuthentication.value, Env.totpEncryptKey);
-      account.totp.target!.updatedAt = DateTime.now();
-      totpUsecase.updateTOTP(account.totp.target!);
-    } else if (keyAuthentication.value.isEmpty && account.totp.target != null) {
-      totpUsecase.deleteTOTP(account.totp.target!.id);
-      account.totp.target = null;
     }
 
     final customFields = dynamicTextFieldNotifier.value.map((e) {
@@ -211,26 +165,11 @@ class UpdateAccountViewModel extends BaseViewModel {
     if (getAccount.isSuccess) {
       final account = getAccount.data ?? AccountOjbModel(title: "");
       this.account = account;
-      branchLogoSelected.value = account.icon == "default" ||
-              account.icon == "" ||
-              account.icon == null ||
-              allBranchLogos
-                      .firstWhere(
-                          (element) => element.branchLogoSlug == account.icon)
-                      .branchLogoSlug ==
-                  null
-          ? BranchLogo(
-              [],
-              "default",
-            )
-          : allBranchLogos
-              .firstWhere((element) => element.branchLogoSlug == account.icon);
+
       txtAppName.text = decryptInfo(account.title);
       txtUsername.text = decryptInfo(account.email ?? "");
       txtPassword.text = decryptPassword(account.password ?? "");
       passNotifier.value = PasswordStrength.calculate(text: txtPassword.text);
-      keyAuthentication.value =
-          decryptTOTPKey(account.totp.target?.secretKey ?? "");
       txtNote.text = decryptInfo(account.notes ?? "");
       categorySelected.value = account.category.target ??
           CategoryOjbModel(
@@ -379,7 +318,7 @@ class UpdateAccountViewModel extends BaseViewModel {
     txtUsername.dispose();
     txtPassword.dispose();
     txtFieldTitle.dispose();
-    txtKeySetOTP.dispose();
+
     txtNote.dispose();
     txtCategoryName.dispose();
 

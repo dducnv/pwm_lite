@@ -1,6 +1,5 @@
 import 'package:cyber_safe/core/utils.dart';
 import 'package:cyber_safe/ui/provider.dart';
-import 'package:cyber_safe/ui/resource/brand_logo.dart';
 import 'package:cyber_safe/ui/resource/language/definitions.dart';
 import 'package:cyber_safe/ui/screens.dart';
 import 'package:cyber_safe/ui/widgets.dart';
@@ -24,7 +23,7 @@ extension UpdateAccountExtension on UpdateAccountMixin {
     final colorScheme = theme.colorScheme;
 
     return showModalBottomSheet(
-      backgroundColor: colorScheme.background,
+      backgroundColor: colorScheme.surface,
       elevation: 0,
       isScrollControlled: true,
       context: context,
@@ -348,113 +347,6 @@ extension UpdateAccountExtension on UpdateAccountMixin {
         });
       },
       isScrollControlled: true,
-    );
-  }
-
-  Future<void> selectIconBottomSheet(
-    BuildContext context,
-    UpdateAccountViewModel viewModel,
-  ) {
-    return showModalBottomSheet(
-      isScrollControlled: true,
-      context: context,
-      builder: (context) {
-        return Container(
-          padding: const EdgeInsets.symmetric(vertical: 16),
-          height: MediaQuery.of(context).size.height * 0.8,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child:
-                        Text(getText(context, CreateAccountLangDif.chonIcon)),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              ListTile(
-                selected: viewModel.branchLogoSelected.value.branchLogoSlug ==
-                    "default",
-                onTap: () {
-                  viewModel.branchLogoSelected.value = BranchLogo(
-                    [],
-                    "default",
-                  );
-                  Navigator.pop(context);
-                },
-                leading: Icon(Icons.cancel_outlined,
-                    color: Colors.blueAccent, size: 30.sp),
-                title: Text(
-                  getText(context, CreateAccountLangDif.khongChon),
-                  style: TextStyle(fontSize: 16.sp),
-                ),
-              ),
-              Expanded(
-                  child: ListView.builder(
-                itemCount: branchLogoCategories.length,
-                itemBuilder: (context, index) {
-                  bool isDarkMode =
-                      Provider.of<RootPR>(context, listen: false).themeMode ==
-                          ThemeMode.dark;
-                  var column = Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        child: Text(
-                          branchLogoCategories[index].categoryName,
-                          style: TextStyle(
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                      Column(
-                          children: branchLogoCategories[index]
-                              .branchLogos
-                              .map(
-                                (e) => ValueListenableBuilder(
-                                  valueListenable: viewModel.branchLogoSelected,
-                                  builder: (_, value, child) => ListTile(
-                                    selected: value == e,
-                                    onTap: () {
-                                      viewModel.branchLogoSelected.value = e;
-                                      viewModel.txtAppName.text = e.branchName!;
-                                      Navigator.pop(context);
-                                    },
-                                    leading: SizedBox(
-                                      width: 40.w,
-                                      height: 40.h,
-                                      child: SvgPicture.asset(
-                                        isDarkMode
-                                            ? e.branchLogoPathDarkMode!
-                                            : e.branchLogoPathLightMode!,
-                                      ),
-                                    ),
-                                    title: Text(
-                                      e.branchName ?? "",
-                                      style: TextStyle(fontSize: 16.sp),
-                                    ),
-                                  ),
-                                ),
-                              )
-                              .toList())
-                    ],
-                  );
-                  return column;
-                },
-              )),
-            ],
-          ),
-        );
-      },
     );
   }
 }

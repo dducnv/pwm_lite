@@ -17,9 +17,4 @@ abstract class AccountUsecase {
   //save all
   Future<Result<bool, Exception>> saveAll(List<AccountOjbModel> accounts);
   Future<Result<bool, Exception>> deleteAll(List<AccountOjbModel> accounts);
-
-  Future<Result<bool, Exception>> addPasswordHistory(
-    AccountOjbModel account,
-    String oldPassword,
-  );
 }

@@ -22,12 +22,10 @@ import 'package:share_plus/share_plus.dart';
 class HomeViewModel extends BaseViewModel {
   final CategoryUsecase sqlCategoryUsecase;
   final AccountUsecase sqlAccountUsecase;
-  final TOTPUsecase totpUsecase;
 
   HomeViewModel({
     required this.sqlCategoryUsecase,
     required this.sqlAccountUsecase,
-    required this.totpUsecase,
   });
 
   final TextEditingController txtSearchKey = TextEditingController();
@@ -280,13 +278,6 @@ class HomeViewModel extends BaseViewModel {
       account.notes =
           _encryptField(decryptInfo(account.notes ?? ""), Env.infoEncryptKey);
 
-      if (account.totp.target != null) {
-        account.totp.target?.secretKey = _encryptField(
-            decryptTOTPKey(account.totp.target?.secretKey ?? ""),
-            Env.totpEncryptKey);
-        totpUsecase.updateTOTP(account.totp.target!);
-      }
-
       if (account.customFields.isNotEmpty) {
         for (var customField in account.customFields) {
           customField.value = _encryptField(
@@ -296,14 +287,6 @@ class HomeViewModel extends BaseViewModel {
               customField.typeField == "password"
                   ? Env.passwordEncryptKey
                   : Env.infoEncryptKey);
-        }
-      }
-
-      if (account.passwordHistories.isNotEmpty) {
-        for (var passwordHistory in account.passwordHistories) {
-          passwordHistory.password = _encryptField(
-              decryptPassword(passwordHistory.password),
-              Env.passwordEncryptKey);
         }
       }
 
@@ -356,9 +339,7 @@ class HomeViewModel extends BaseViewModel {
                   icon: account.icon,
                   passwordUpdatedAt: account.passwordUpdatedAt,
                   categoryOjbModel: account.category.target,
-                  totpOjbModel: account.totp.target,
                   customFieldOjbModel: account.customFields,
-                  passwordHistoriesList: account.passwordHistories,
                 ),
               );
             }

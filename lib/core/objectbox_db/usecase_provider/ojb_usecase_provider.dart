@@ -7,9 +7,7 @@ class OjbUsecaseProvider implements UsecaseProvider {
   AccountUsecase getAccountUseCase() {
     return OjbAccountUsecase(
         OjbRepository<AccountOjbModel>(objectboxStack.store),
-        OjbRepository<AccountCustomFieldOjbModel>(objectboxStack.store),
-        OjbRepository<TOTPOjbModel>(objectboxStack.store),
-        OjbRepository<PasswordHistory>(objectboxStack.store));
+        OjbRepository<AccountCustomFieldOjbModel>(objectboxStack.store));
   }
 
   @override
@@ -23,10 +21,5 @@ class OjbUsecaseProvider implements UsecaseProvider {
   AccountCustomFieldUsecase getAccountCustomFieldUseCase() {
     return OjbAccountCustomFieldUsecase(
         OjbRepository<AccountCustomFieldOjbModel>(objectboxStack.store));
-  }
-
-  @override
-  TOTPUsecase getTOTPUseCase() {
-    return OjbTOTPUsecase(OjbRepository<TOTPOjbModel>(objectboxStack.store));
   }
 }

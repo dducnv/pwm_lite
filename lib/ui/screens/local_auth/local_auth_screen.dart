@@ -3,14 +3,20 @@ import 'package:cyber_safe/ui/screens.dart';
 import 'package:cyber_safe/ui/screens/local_auth/views.dart';
 import 'package:cyber_safe/ui/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 class LocalAuthScreen extends StatefulWidget {
   final bool? isVeryfiExportBackup;
   final Function()? onCallBack;
   final bool? isPinFileImport;
-  final Function(TextEditingController controller, GlobalKey<AppPinCodeFieldsState> appPinCodeKey)? onCallBackWithPin;
+  final Function(TextEditingController controller,
+      GlobalKey<AppPinCodeFieldsState> appPinCodeKey)? onCallBackWithPin;
   const LocalAuthScreen(
-      {super.key, this.isVeryfiExportBackup, this.onCallBack, this.isPinFileImport, this.onCallBackWithPin});
+      {super.key,
+      this.isVeryfiExportBackup,
+      this.onCallBack,
+      this.isPinFileImport,
+      this.onCallBackWithPin});
 
   @override
   State<LocalAuthScreen> createState() => _LocalAuthScreenState();
@@ -26,6 +32,7 @@ class _LocalAuthScreenState extends State<LocalAuthScreen> {
         isPinFileImport: widget.isPinFileImport,
         onCallBackWithPin: widget.onCallBackWithPin,
       );
+      FlutterNativeSplash.remove();
     }, builder: (context, viewModel, _) {
       return ResponsiveLayout(
         mobileBody: MobileView(

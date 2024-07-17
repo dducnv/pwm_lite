@@ -23,14 +23,6 @@ extension RegisterUsecase on ServiceLocator {
             .getCategoryUseCase(),
         instanceName: DependencyInstance.ojbCategoryUsecase.name);
 
-    locator.registerFactory<TOTPUsecase>(
-        () => locator
-            .get<UsecaseProvider>(
-              instanceName: DependencyInstance.ojbUsecaseProvider.name,
-            )
-            .getTOTPUseCase(),
-        instanceName: DependencyInstance.ojbTOTPUsecase.name);
-
     locator.registerFactory<AccountCustomFieldUsecase>(
         () => locator
             .get<UsecaseProvider>(

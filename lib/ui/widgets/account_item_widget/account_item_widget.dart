@@ -1,11 +1,8 @@
 import 'package:cyber_safe/core/utils.dart';
 import 'package:cyber_safe/ui/provider.dart';
-import 'package:cyber_safe/ui/resource/brand_logo.dart';
 import 'package:cyber_safe/ui/route.dart';
 import 'package:flutter/material.dart';
 import 'package:cyber_safe/core/domains.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:provider/provider.dart';
 
 class AccountItemWidget extends StatelessWidget {
   final AccountOjbModel accountModel;
@@ -28,38 +25,12 @@ class AccountItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isDarkMode =
-        Provider.of<RootPR>(context, listen: false).themeMode == ThemeMode.dark;
-
     Widget accountIcon() {
-      if (accountModel.icon == "default" || accountModel.icon == null) {
-        return Text(decryptInfo(accountModel.title)[0].toUpperCase());
-      }
-      final branchLogo = allBranchLogos.firstWhere(
-        (element) => element.branchLogoSlug == accountModel.icon,
-        orElse: () => BranchLogo(
-          [],
-          "default",
-        ),
-      );
-      if (branchLogo.branchName == null) {
-        return Text(decryptInfo(accountModel.title)[0].toUpperCase(),
-            style: const TextStyle(
-              fontSize: 25,
-              fontWeight: FontWeight.bold,
-            ));
-      }
-      return Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: SvgPicture.asset(
-          isDarkMode
-              ? branchLogo.branchLogoPathDarkMode!
-              : branchLogo.branchLogoPathLightMode!,
-          fit: BoxFit.contain,
-          width: 50.w,
-          height: 50.h,
-        ),
-      );
+      return Text(decryptInfo(accountModel.title)[0].toUpperCase(),
+          style: const TextStyle(
+            fontSize: 25,
+            fontWeight: FontWeight.bold,
+          ));
     }
 
     return Material(

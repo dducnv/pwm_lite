@@ -22,14 +22,8 @@ export './screens/local_auth/local_auth_screen.dart';
 export 'screens/register/register_screen_view_model.dart';
 export './screens/register/register_screen.dart';
 
-export './screens/totp_manager/totp_manager_view_model.dart';
-export './screens/totp_manager/totp_manager_screen.dart';
-
 export './screens/password_generator/pass_gen_view_model.dart';
 export './screens/password_generator/pass_gen_screen.dart';
-
-export './screens/security_check/security_check_view_model.dart';
-export './screens/security_check/security_check_screen.dart';
 
 export './screens/about_app/fqa_screen.dart';
 export './screens/about_app/about_app_screen.dart';

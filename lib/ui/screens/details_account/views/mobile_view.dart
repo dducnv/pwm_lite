@@ -1,12 +1,10 @@
 import 'package:cyber_safe/core/utils.dart';
 import 'package:cyber_safe/ui/provider/root_provider.dart';
-import 'package:cyber_safe/ui/resource/brand_logo.dart';
 import 'package:cyber_safe/ui/resource/language/definitions.dart';
 import 'package:cyber_safe/ui/screens.dart';
 import 'package:cyber_safe/ui/screens/details_account/extensions.dart';
 import 'package:cyber_safe/ui/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
 class MobileView extends StatefulWidget {
@@ -24,9 +22,6 @@ class MobileView extends StatefulWidget {
 class _MobileViewState extends State<MobileView> with AccountDetailsMixin {
   @override
   Widget build(BuildContext context) {
-    final isDarkMode =
-        Provider.of<RootPR>(context, listen: false).themeMode == ThemeMode.dark;
-
     return Scaffold(
       appBar: AppbarCustom(
           title: "",
@@ -70,52 +65,18 @@ class _MobileViewState extends State<MobileView> with AccountDetailsMixin {
                                   borderRadius: BorderRadius.circular(15),
                                 ),
                                 child: Center(
-                                  child: account.icon == "default" ||
-                                          account.icon == null ||
-                                          account.icon == "" ||
-                                          allBranchLogos
-                                                  .firstWhere((element) =>
-                                                      element.branchLogoSlug ==
-                                                      account.icon)
-                                                  .branchName ==
-                                              null
-                                      ? Text(
-                                          account.title != ""
-                                              ? decryptInfo(account.title)[0]
-                                                  .toUpperCase()
-                                              : "",
-                                          style: TextStyle(
-                                            fontSize: 30.sp,
-                                            fontWeight: FontWeight.bold,
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .primary,
-                                          ),
-                                        )
-                                      : Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: SizedBox(
-                                            width: 70.w,
-                                            height: 70.h,
-                                            child: SvgPicture.asset(
-                                              isDarkMode
-                                                  ? allBranchLogos
-                                                      .firstWhere((element) =>
-                                                          element
-                                                              .branchLogoSlug ==
-                                                          account.icon)
-                                                      .branchLogoPathDarkMode!
-                                                  : allBranchLogos
-                                                      .firstWhere((element) =>
-                                                          element
-                                                              .branchLogoSlug ==
-                                                          account.icon)
-                                                      .branchLogoPathLightMode!,
-                                              fit: BoxFit.contain,
-                                            ),
-                                          ),
-                                        ),
-                                ),
+                                    child: Text(
+                                  account.title != ""
+                                      ? decryptInfo(account.title)[0]
+                                          .toUpperCase()
+                                      : "",
+                                  style: TextStyle(
+                                    fontSize: 30.sp,
+                                    fontWeight: FontWeight.bold,
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                  ),
+                                )),
                               ),
                               const SizedBox(height: 5),
                               Text(
@@ -129,32 +90,6 @@ class _MobileViewState extends State<MobileView> with AccountDetailsMixin {
                           ),
                         ),
                         const SizedBox(height: 10),
-                        if (account.totp.target != null &&
-                            account.totp.target?.secretKey != null)
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                getText(
-                                  context,
-                                  DetailsAccountLangDef.maXacThucTOTP,
-                                ),
-                                style: TextStyle(
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.grey[800],
-                                ),
-                              ),
-                              const SizedBox(height: 5),
-                              CardCustomWidget(
-                                child: OtpTextWithCountdown(
-                                  keySecret: decryptTOTPKey(
-                                      account.totp.target!.secretKey),
-                                ),
-                              ),
-                            ],
-                          ),
                         Visibility(
                             visible: account.email != null &&
                                 account.email != "" &&
@@ -431,111 +366,6 @@ class _MobileViewState extends State<MobileView> with AccountDetailsMixin {
                                   fontWeight: FontWeight.w400,
                                   color: Colors.grey[800],
                                 ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        Visibility(
-                          visible: account.passwordUpdatedAt != null &&
-                              account.passwordHistories.isNotEmpty,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              RichText(
-                                text: TextSpan(
-                                  children: [
-                                    TextSpan(
-                                      text:
-                                          "${getText(context, DetailsAccountLangDef.capNhatMatKhauLanCuoi)}: ",
-                                      style: TextStyle(
-                                        fontSize: 14.sp,
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.grey[800],
-                                      ),
-                                    ),
-                                    TextSpan(
-                                      text: account.passwordUpdatedAtFromat,
-                                      style: TextStyle(
-                                        fontSize: 14.sp,
-                                        fontWeight: FontWeight.w400,
-                                        color: Colors.grey[800],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              const SizedBox(height: 5),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  RichText(
-                                    text: TextSpan(
-                                      children: [
-                                        TextSpan(
-                                          text: "${getText(
-                                            context,
-                                            DetailsAccountLangDef.lichSuMatKhau,
-                                          )}: ",
-                                          style: TextStyle(
-                                            fontSize: 14.sp,
-                                            fontWeight: FontWeight.w600,
-                                            color: Colors.grey[800],
-                                          ),
-                                        ),
-                                        TextSpan(
-                                          text:
-                                              "${account.passwordHistories.length}",
-                                          style: TextStyle(
-                                            fontSize: 14.sp,
-                                            fontWeight: FontWeight.w600,
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .primary,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  InkWell(
-                                    borderRadius: BorderRadius.circular(50),
-                                    onTap: () {
-                                      Navigator.of(context).push(
-                                        MaterialPageRoute(builder: (context) {
-                                          return LocalAuthScreen(
-                                            isVeryfiExportBackup: true,
-                                            onCallBack: () {
-                                              Navigator.pop(context);
-                                              bottomSheetPasswordHistory(
-                                                  context: context,
-                                                  accountOjbModel: account);
-                                            },
-                                          );
-                                        }),
-                                      );
-                                    },
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 2, horizontal: 10),
-                                      child: Text(
-                                        getText(
-                                          context,
-                                          DetailsAccountLangDef.chiTiet,
-                                        ),
-                                        style: TextStyle(
-                                          fontSize: 14.sp,
-                                          fontWeight: FontWeight.w600,
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .primary,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
                               ),
                             ],
                           ),

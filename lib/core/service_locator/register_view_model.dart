@@ -8,8 +8,6 @@ extension RegisterViewModel on ServiceLocator {
     // Register "Home" view model
     locator.registerFactory<HomeViewModel>(
       () => HomeViewModel(
-        totpUsecase: locator.get<TOTPUsecase>(
-            instanceName: DependencyInstance.ojbTOTPUsecase.name),
         sqlCategoryUsecase: locator.get<CategoryUsecase>(
             instanceName: DependencyInstance.ojbCategoryUsecase.name),
         sqlAccountUsecase: locator.get<AccountUsecase>(
@@ -36,8 +34,6 @@ extension RegisterViewModel on ServiceLocator {
             instanceName: DependencyInstance.ojbAccountUsecase.name),
         accountCustomFieldUsecase: locator.get<AccountCustomFieldUsecase>(
             instanceName: DependencyInstance.ojbCustomFieldUsecase.name),
-        totpUsecase: locator.get<TOTPUsecase>(
-            instanceName: DependencyInstance.ojbTOTPUsecase.name),
       ),
     );
 
@@ -56,8 +52,6 @@ extension RegisterViewModel on ServiceLocator {
             instanceName: DependencyInstance.ojbAccountUsecase.name),
         categoryUsecase: locator.get<CategoryUsecase>(
             instanceName: DependencyInstance.ojbCategoryUsecase.name),
-        totpUsecase: locator.get<TOTPUsecase>(
-            instanceName: DependencyInstance.ojbTOTPUsecase.name),
       ),
     );
 
@@ -67,23 +61,8 @@ extension RegisterViewModel on ServiceLocator {
             instanceName: DependencyInstance.ojbCategoryUsecase.name),
       ),
     );
-    locator.registerFactory<TOTPViewModel>(
-      () => TOTPViewModel(
-        totpUsecase: locator.get<TOTPUsecase>(
-            instanceName: DependencyInstance.ojbTOTPUsecase.name),
-      ),
-    );
 
     locator.registerFactory<PassGenViewModel>(() => PassGenViewModel());
-
-    locator.registerFactory<SecurityCheckViewModel>(
-      () => SecurityCheckViewModel(
-        accountUsecase: locator.get<AccountUsecase>(
-            instanceName: DependencyInstance.ojbAccountUsecase.name),
-        categoryUsecase: locator.get<CategoryUsecase>(
-            instanceName: DependencyInstance.ojbCategoryUsecase.name),
-      ),
-    );
 
     locator.registerFactory<LocalAuthViewModel>(() => LocalAuthViewModel());
     locator.registerFactory<RegisterScreenViewModel>(

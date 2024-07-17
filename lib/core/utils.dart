@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:cyber_safe/core/services.dart';
 import 'package:cyber_safe/ui/provider/data_shared.dart';
 import 'package:cyber_safe/ui/resource/language/definitions.dart';
 import 'package:cyber_safe/ui/route.dart';
@@ -12,7 +11,6 @@ import 'package:provider/provider.dart';
 import 'package:cyber_safe/core/env.dart';
 import 'package:cyber_safe/core/utils.dart';
 import 'package:cyber_safe/ui/provider/root_provider.dart';
-import 'package:timezone/timezone.dart' as timezone;
 import 'package:url_launcher/url_launcher.dart';
 
 export './utils/dialog_content.dart';
@@ -23,10 +21,8 @@ export './utils/secure_storage.dart';
 export './utils/theme_provider.dart';
 export './utils/global_keys.dart';
 export './utils/result.dart';
-export './utils/base32.dart';
-export './utils/encodings_base32.dart';
 export './utils/type_text_field.dart';
-export './utils/refetch_totp.dart';
+
 export './utils/secure_application_util.dart';
 export './utils/scale_utils.dart';
 
@@ -80,22 +76,6 @@ String decryptPassword(String password) {
   } catch (e) {
     customLogger(msg: "decryptPassword: $e", typeLogger: TypeLogger.error);
     return "error decrypting password";
-  }
-}
-
-String decryptTOTPKey(String totpKey) {
-  try {
-    if (totpKey.isEmpty) return '';
-    String decryptResult = EncryptData.instance.decryptFernet(
-      key: _dataShared.isUpdatedVersionEncryptKey.value
-          ? Env.oldTotpEncryptKey
-          : Env.totpEncryptKey,
-      value: totpKey,
-    );
-    return decryptResult;
-  } catch (e) {
-    customLogger(msg: "decryptTOTPKey: $e", typeLogger: TypeLogger.error);
-    return "";
   }
 }
 
@@ -184,23 +164,6 @@ Future<void> checkIsRegister() async {
     Navigator.of(GlobalKeys.appRootNavigatorKey.currentContext!)
         .pushNamedAndRemoveUntil(RoutePaths.registerRoute, (route) => false);
   }
-}
-
-String generateTOTPCode({
-  required String keySecret,
-}) {
-  if (keySecret.isEmpty) {
-    return "--- ---";
-  }
-  final now = DateTime.now();
-  final pacificTimeZone = timezone.getLocation('America/Los_Angeles');
-  final date = timezone.TZDateTime.from(now, pacificTimeZone);
-  return OTPCustom.generateTOTPCodeString(
-    keySecret,
-    date.millisecondsSinceEpoch,
-    algorithm: Algorithm.SHA1,
-    isGoogle: true,
-  );
 }
 
 Future<void> showRequestUpdateVersionKey() async {

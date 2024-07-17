@@ -1,4 +1,3 @@
-import 'package:cyber_safe/core/domains.dart';
 import 'package:cyber_safe/core/utils.dart';
 import 'package:cyber_safe/ui/provider.dart';
 import 'package:cyber_safe/ui/resource/language/definitions/details_account_lang_definiton.dart';
@@ -7,8 +6,6 @@ import 'package:cyber_safe/ui/resource/size_text_icon.dart';
 import 'package:cyber_safe/ui/route.dart';
 import 'package:cyber_safe/ui/screens.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 
 mixin AccountDetailsMixin {}
 
@@ -106,63 +103,6 @@ extension AccountDetailsExtension on AccountDetailsMixin {
                         );
                       },
                     );
-                  },
-                ),
-              ],
-            ),
-          ),
-        );
-      },
-    );
-  }
-
-  Future<void> bottomSheetPasswordHistory(
-      {required BuildContext context,
-      required AccountOjbModel accountOjbModel}) {
-    return showModalBottomSheet(
-      context: context,
-      builder: (BuildContext context) {
-        return SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Text(
-                    getText(context, DetailsAccountLangDef.lichSuMatKhau),
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
-                ),
-                const SizedBox(height: 10),
-                ListView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: accountOjbModel.passwordHistories.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    final passwordHistory =
-                        accountOjbModel.passwordHistories[index];
-                    return ListTile(
-                        title: Text(
-                          decryptPassword(passwordHistory.password),
-                          style: Theme.of(context).textTheme.bodyLarge,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        subtitle: Text(
-                          " ${passwordHistory.createdAtFromat}",
-                          style: Theme.of(context).textTheme.bodyMedium,
-                        ),
-                        trailing: IconButton(
-                          icon: const Icon(Icons.copy),
-                          onPressed: () {
-                            clipboardCustom(
-                                context: context,
-                                text:
-                                    decryptPassword(passwordHistory.password));
-                          },
-                        ));
                   },
                 ),
               ],
