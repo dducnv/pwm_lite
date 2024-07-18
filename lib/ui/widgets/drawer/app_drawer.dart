@@ -28,18 +28,10 @@ class AppDrawer extends StatelessWidget {
                 ), //BoxDecoration
                 child: Column(
                   children: [
-                    SvgPicture.asset(
-                      'assets/images/CyberSafeTrans.svg',
-                      width: 90.w,
-                      height: 90.h,
-                      fit: BoxFit.cover,
-                    ),
-                    Text(
-                      'CyberSafe',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 25.sp,
-                          fontWeight: FontWeight.bold),
+                    Image.asset(
+                      'assets/images/app_icon_trans.png',
+                      width: 120.w,
+                      height: 120.w,
                     ),
                   ],
                 ) //UserAccountDrawerHeader

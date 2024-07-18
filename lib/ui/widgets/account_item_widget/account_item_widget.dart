@@ -29,7 +29,7 @@ class AccountItemWidget extends StatelessWidget {
       return Text(decryptInfo(accountModel.title)[0].toUpperCase(),
           style: const TextStyle(
             fontSize: 25,
-            fontWeight: FontWeight.bold,
+            fontWeight: FontWeight.w500,
           ));
     }
 

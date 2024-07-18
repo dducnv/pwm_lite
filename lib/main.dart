@@ -15,7 +15,6 @@ import 'package:cyber_safe/core/utils.dart';
 import 'package:cyber_safe/ui/provider.dart';
 import 'package:cyber_safe/ui/route.dart';
 import 'package:secure_application/secure_application.dart';
-import 'package:timezone/data/latest.dart' as timezone;
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:upgrader/upgrader.dart';
 
@@ -33,7 +32,6 @@ Future<void> main() async {
   await initializeDateFormatting(defaultLocale, null);
   await LocalAuthConfig.instance.init();
   await SecureApplicationUtil.instance.init();
-  timezone.initializeTimeZones();
   await ObjectboxStack.instance.create();
   packageInfo = await PackageInfo.fromPlatform();
   await reviewApp();
