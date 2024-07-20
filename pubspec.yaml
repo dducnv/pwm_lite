@@ -63,5 +63,7 @@ flutter:
     - assets/images/
     - assets/animations/
     - assets/images/icons/
+    - assets/images/brand_icons/
+    - assets/images/brand_icons/banks/
     - assets/markdown/privacy_policy/
     - assets/markdown/terms_of_service/

@@ -4,6 +4,7 @@ import 'package:cyber_safe/core/env.dart';
 import 'package:cyber_safe/core/utils.dart';
 import 'package:cyber_safe/ui/base.dart';
 import 'package:cyber_safe/ui/provider.dart';
+import 'package:cyber_safe/ui/resource/brand_logo.dart';
 import 'package:cyber_safe/ui/resource/language/definitions.dart';
 import 'package:cyber_safe/ui/screens.dart';
 import 'package:cyber_safe/ui/widgets.dart';
@@ -52,6 +53,13 @@ class UpdateAccountViewModel extends BaseViewModel {
         title: getText(GlobalKeys.appRootNavigatorKey.currentContext!,
             CreateAccountLangDif.vanBan),
         type: 'text'),
+  );
+
+  ValueNotifier<BranchLogo> branchLogoSelected = ValueNotifier<BranchLogo>(
+    BranchLogo(
+      [],
+      "default",
+    ),
   );
 
   /// Category
@@ -115,6 +123,10 @@ class UpdateAccountViewModel extends BaseViewModel {
 
     if (decryptInfo(account.notes ?? "") != txtNote.text) {
       account.notes = encryptField(txtNote.text, Env.infoEncryptKey);
+    }
+
+    if (account.icon != branchLogoSelected.value.branchLogoSlug) {
+      account.icon = branchLogoSelected.value.branchLogoSlug;
     }
 
     if (account.category.targetId != categorySelected.value.id) {

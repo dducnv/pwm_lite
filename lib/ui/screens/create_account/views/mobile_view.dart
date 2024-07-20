@@ -1,10 +1,13 @@
 import 'package:cyber_safe/core/utils.dart';
+import 'package:cyber_safe/ui/provider.dart';
 import 'package:cyber_safe/ui/resource/language/definitions.dart';
 import 'package:cyber_safe/ui/screens/create_account/extentions.dart';
 import 'package:flutter/material.dart';
 import 'package:cyber_safe/ui/screens.dart';
 import 'package:cyber_safe/ui/widgets.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:password_strength_checker/password_strength_checker.dart';
+import 'package:provider/provider.dart';
 
 class MobileView extends StatefulWidget {
   final CreateAccountViewModel viewModel;
@@ -50,6 +53,51 @@ class _MobileViewState extends State<MobileView> with CreateAccountMixin {
               key: _formKey,
               child: Column(
                 children: [
+                  ValueListenableBuilder(
+                      valueListenable: widget.viewModel.branchLogoSelected,
+                      builder: (context, value, child) {
+                        bool isDarkMode =
+                            Provider.of<RootPR>(context, listen: false)
+                                    .themeMode ==
+                                ThemeMode.dark;
+
+                        return Container(
+                          width: 70.w,
+                          height: 70.h,
+                          clipBehavior: Clip.hardEdge,
+                          decoration: BoxDecoration(
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .secondaryContainer,
+                              borderRadius: BorderRadius.circular(15)),
+                          child: InkWell(
+                            onTap: () {
+                              selectIconBottomSheet(context, widget.viewModel);
+                            },
+                            borderRadius: BorderRadius.circular(15),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: value.branchLogoSlug == "default"
+                                  ? Center(
+                                      child: Icon(
+                                        Icons.add,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .primary,
+                                      ),
+                                    )
+                                  : SvgPicture.asset(
+                                      isDarkMode
+                                          ? value.branchLogoPathDarkMode!
+                                          : value.branchLogoPathLightMode!,
+                                    ),
+                            ),
+                          ),
+                        );
+                      }),
+                  const SizedBox(
+                    height: 10,
+                  ),
                   ValueListenableBuilder(
                     valueListenable: widget.viewModel.isRequiredAppName,
                     builder: (_, value, child) {

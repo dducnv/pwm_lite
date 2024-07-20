@@ -14,6 +14,9 @@ Utilizamos medidas avançadas de segurança para proteger suas informações:
 
 - **Sem Armazenamento Externo:** Não armazenamos dados em servidores externos. Todas as informações são armazenadas localmente no seu dispositivo, minimizando o risco de acesso não autorizado.
 
+- **Mudança Periódica de Chave de Criptografia:** Para garantir a segurança das informações por meio da criptografia, o aplicativo terá chaves de criptografia para as informações que você inserir. Mudaremos essas chaves de criptografia periodicamente para garantir a segurança das suas informações.
+
+
 ### **4. Recurso de Compra Vitalícia**
 
 O CyberSafe é um aplicativo de compra única, e você pode usá-lo pelo resto da vida após a compra. Não há taxas mensais ou anuais. Basta fazer uma compra única e usar o aplicativo indefinidamente.
@@ -21,6 +24,9 @@ O CyberSafe é um aplicativo de compra única, e você pode usá-lo pelo resto d
 ### **5. Backup e Recuperação de Dados**
 
 O CyberSafe suporta backup e recuperação de dados por meio de arquivos criptografados com AES. Isso garante que seus backups sejam sempre seguros e acessíveis apenas por você.
+
+ **Nota:** _Com o recurso de mudança periódica de chave de criptografia, como os arquivos de backup também estão dentro do escopo da nossa criptografia, após a atualização para uma nova chave de criptografia, todos os arquivos de backup antigos não poderão ser usados para garantir a segurança. No entanto, após a atualização, exigiremos que você crie um novo backup, para que você possa ficar tranquilo com relação aos seus dados. Caso você exclua o aplicativo por um longo período e volte a usá-lo, se esse período coincidir com nossa atualização de chave de criptografia, você também não poderá usar os arquivos de backup antigos._
+
 
 ### **6. Direitos do Usuário**
 

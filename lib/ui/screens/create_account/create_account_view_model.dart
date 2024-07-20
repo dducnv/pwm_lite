@@ -1,6 +1,7 @@
 import 'package:cyber_safe/core/domains.dart';
 import 'package:cyber_safe/core/env.dart';
 import 'package:cyber_safe/ui/provider.dart';
+import 'package:cyber_safe/ui/resource/brand_logo.dart';
 import 'package:cyber_safe/ui/resource/language/definitions.dart';
 import 'package:flutter/material.dart';
 import 'package:cyber_safe/core/utils.dart';
@@ -65,6 +66,14 @@ class CreateAccountViewModel extends BaseViewModel {
           CreateAccountLangDif.chonDanhMuc),
     ),
   );
+
+  ValueNotifier<BranchLogo> branchLogoSelected = ValueNotifier<BranchLogo>(
+    BranchLogo(
+      [],
+      "default",
+    ),
+  );
+
   final ValueNotifier<bool> isRequiredSelectCategory =
       ValueNotifier<bool>(false);
 
@@ -109,7 +118,7 @@ class CreateAccountViewModel extends BaseViewModel {
 
     // Tạo đối tượng AccountOjbModel
     final account = AccountOjbModel(
-      icon: "default",
+      icon: branchLogoSelected.value.branchLogoSlug,
       title: appNameEncrypted,
       email: usernameEncrypted,
       password: passwordEncrypted,

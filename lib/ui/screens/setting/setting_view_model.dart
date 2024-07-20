@@ -10,6 +10,7 @@ import 'package:cyber_safe/core/env.dart';
 import 'package:cyber_safe/core/utils.dart';
 import 'package:cyber_safe/ui/base.dart';
 import 'package:cyber_safe/ui/provider.dart';
+import 'package:cyber_safe/ui/resource/brand_logo.dart';
 import 'package:cyber_safe/ui/resource/language/definitions/setting_manager_lang_definition.dart';
 import 'package:cyber_safe/ui/screens.dart';
 import 'package:downloadsfolder/downloadsfolder.dart';
@@ -390,7 +391,9 @@ class SettingViewModel extends BaseViewModel {
         final String passwordEncrypted =
             encryptField(password, Env.passwordEncryptKey);
         final String noteEncrypted = encryptField(url, Env.infoEncryptKey);
-        String iconNew = "default";
+
+        String splitTitle = title.replaceAll(".", " ");
+        String iconNew = getIcon(splitTitle);
 
         AccountOjbModel newAccount = AccountOjbModel(
           title: appNameEncrypted,
@@ -432,6 +435,17 @@ class SettingViewModel extends BaseViewModel {
 
       customLogger(msg: e.toString(), typeLogger: TypeLogger.error);
     }
+  }
+
+  String getIcon(
+    String keyWork,
+  ) {
+    for (var icon in allBranchLogos) {
+      if (keyWork.toLowerCase().contains(icon.branchLogoSlug!.toLowerCase())) {
+        return icon.branchLogoSlug ?? "default";
+      }
+    }
+    return "default";
   }
 
   String encryptField(String value, String key) {
