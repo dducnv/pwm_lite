@@ -62,7 +62,7 @@ class _MobileViewState extends State<MobileView> with CreateAccountMixin {
                                 ThemeMode.dark;
 
                         return Container(
-                          width: 70.w,
+                          width: 70.h,
                           height: 70.h,
                           clipBehavior: Clip.hardEdge,
                           decoration: BoxDecoration(

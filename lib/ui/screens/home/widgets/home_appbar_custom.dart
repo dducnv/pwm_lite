@@ -10,12 +10,16 @@ import 'package:provider/provider.dart';
 
 class HomeAppbarCustom extends StatefulWidget implements PreferredSizeWidget {
   final HomeViewModel viewModel;
+  final bool isDesktop;
   final GlobalKey<ScaffoldState> scaffoldKey;
   @override
   final Size preferredSize;
 
   const HomeAppbarCustom(
-      {super.key, required this.viewModel, required this.scaffoldKey})
+      {super.key,
+      required this.viewModel,
+      required this.scaffoldKey,
+      this.isDesktop = false})
       : preferredSize = const Size.fromHeight(kToolbarHeight);
 
   @override
@@ -32,18 +36,30 @@ class _HomeAppbarCustomState extends State<HomeAppbarCustom> with HomeMixin {
 
           return AppBar(
               elevation: 0,
+              title: Visibility(
+                visible: !isNotEmpty && widget.isDesktop,
+                child: Text(
+                  "CyberSafe",
+                  style: TextStyle(
+                    fontSize: 20.sp,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
               systemOverlayStyle: SystemUiOverlayStyle(
                 statusBarColor: isNotEmpty
                     ? Theme.of(context).colorScheme.primary
-                    : Theme.of(context).colorScheme.background,
+                    : Theme.of(context).colorScheme.surface,
                 statusBarIconBrightness: isNotEmpty
                     ? Brightness.light
                     : Theme.of(context).brightness,
               ),
               backgroundColor: isNotEmpty
                   ? Theme.of(context).colorScheme.primary
-                  : Theme.of(context).colorScheme.background,
+                  : Theme.of(context).colorScheme.surface,
               scrolledUnderElevation: 0,
+              automaticallyImplyLeading: false,
+              leadingWidth: !isNotEmpty && widget.isDesktop ? 0 : 56,
               leading: isNotEmpty
                   ? IconButton(
                       icon: Icon(
@@ -55,20 +71,24 @@ class _HomeAppbarCustomState extends State<HomeAppbarCustom> with HomeMixin {
                         widget.viewModel.dataShared.accountSelected.value = [];
                       },
                     )
-                  : IconButton(
-                      icon: Icon(
-                        Icons.sort_rounded,
-                        size: 24.sp,
+                  : Visibility(
+                      visible: !widget.isDesktop,
+                      replacement: const SizedBox(),
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.sort_rounded,
+                          size: 24.sp,
+                        ),
+                        onPressed: () {
+                          if (widget.scaffoldKey.currentState!.isDrawerOpen) {
+                            widget.scaffoldKey.currentState!.closeDrawer();
+                            //close drawer, if drawer is open
+                          } else {
+                            widget.scaffoldKey.currentState!.openDrawer();
+                            //open drawer, if drawer is closed
+                          }
+                        },
                       ),
-                      onPressed: () {
-                        if (widget.scaffoldKey.currentState!.isDrawerOpen) {
-                          widget.scaffoldKey.currentState!.closeDrawer();
-                          //close drawer, if drawer is open
-                        } else {
-                          widget.scaffoldKey.currentState!.openDrawer();
-                          //open drawer, if drawer is closed
-                        }
-                      },
                     ),
               actions: isNotEmpty
                   ? [
@@ -166,25 +186,32 @@ class _HomeAppbarCustomState extends State<HomeAppbarCustom> with HomeMixin {
                               ),
                             );
                           }),
-                      IconButton(
-                        icon: Icon(
-                          Icons.search_rounded,
-                          size: 24.sp,
+                      Visibility(
+                        visible: !widget.isDesktop,
+                        child: IconButton(
+                          icon: Icon(
+                            Icons.search_rounded,
+                            size: 24.sp,
+                          ),
+                          onPressed: () {
+                            //show bottom sheet
+                            searchBottomSheet(
+                                context: context, viewModel: widget.viewModel);
+                          },
                         ),
-                        onPressed: () {
-                          //show bottom sheet
-                          searchBottomSheet(
-                              context: context, viewModel: widget.viewModel);
-                        },
                       ),
-                      IconButton(
-                        icon: Icon(
-                          Icons.settings_rounded,
-                          size: 24.sp,
+                      Visibility(
+                        visible: !widget.isDesktop,
+                        child: IconButton(
+                          icon: Icon(
+                            Icons.settings_rounded,
+                            size: 24.sp,
+                          ),
+                          onPressed: () {
+                            Navigator.pushNamed(
+                                context, RoutePaths.settingRoute);
+                          },
                         ),
-                        onPressed: () {
-                          Navigator.pushNamed(context, RoutePaths.settingRoute);
-                        },
                       ),
                     ]);
         });

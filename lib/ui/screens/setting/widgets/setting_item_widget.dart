@@ -31,13 +31,13 @@ class SettingItemWidget extends StatelessWidget {
             onTap: onTap,
             child: Padding(
               padding: padding ??
-                  EdgeInsets.symmetric(horizontal: 16.w, vertical: 20.h),
+                  const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   SizedBox(
                     width:
-                        titleWidth ?? MediaQuery.of(context).size.width * 0.55,
+                        titleWidth ?? MediaQuery.of(context).size.width * 0.5,
                     child: Text(
                       title,
                       style: settingTitleItemStyle,

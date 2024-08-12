@@ -32,7 +32,7 @@ class _CreatePinCodeWidgetState extends State<CreatePinCodeWidget> {
           height: 20,
         ),
         Container(
-          constraints: BoxConstraints(maxWidth: 500.w),
+          constraints: const BoxConstraints(maxWidth: 400),
           child: AppPinCodeFields(
             key: widget.viewModel.appPinCodeCreateKey,
             formKey: widget.viewModel.formCreateKey,
@@ -57,7 +57,7 @@ class _CreatePinCodeWidgetState extends State<CreatePinCodeWidget> {
         ),
         CustomButtonWidget(
             borderRaidus: 100,
-            width: 75.w,
+            width: 75.h,
             height: 75.h,
             onPressed: () {
               widget.viewModel.navigateToConfirmPinCode();

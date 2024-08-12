@@ -46,7 +46,7 @@ class _TabletViewState extends State<TabletView> {
             height: 20.h,
           ),
           Container(
-            constraints: BoxConstraints(maxWidth: 500.w),
+            constraints: const BoxConstraints(maxWidth: 400),
             child: AppPinCodeFields(
               autoFocus: widget.viewModel.focusNode.hasFocus,
               key: widget.viewModel.appPinCodeKey,
@@ -68,7 +68,7 @@ class _TabletViewState extends State<TabletView> {
           //   height: 5,
           // ),
           Container(
-            constraints: BoxConstraints(maxWidth: 400.w),
+            constraints: const BoxConstraints(maxWidth: 400),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -113,7 +113,7 @@ class _TabletViewState extends State<TabletView> {
           ),
           CustomButtonWidget(
               borderRaidus: 100,
-              width: 75.w,
+              width: 75.h,
               height: 75.h,
               onPressed: () {
                 widget.viewModel.onLogin();

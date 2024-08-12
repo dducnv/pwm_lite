@@ -4,8 +4,6 @@ import 'package:cyber_safe/ui/resource/size_text_icon.dart';
 import 'package:cyber_safe/ui/screens.dart';
 import 'package:cyber_safe/ui/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:numberpicker/numberpicker.dart';
 
 class MobileView extends StatelessWidget {
@@ -127,7 +125,7 @@ class MobileView extends StatelessWidget {
                             itemCount: 5,
                             minValue: 8,
                             maxValue: 100,
-                            itemWidth: 60.w,
+                            itemWidth: 60.h,
                             itemHeight: 60.h,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(16),
@@ -192,7 +190,7 @@ class MobileView extends StatelessWidget {
                     CustomButtonWidget(
                         borderRaidus: 100,
                         kMargin: 0,
-                        width: 68.w,
+                        width: 68.h,
                         height: 68.h,
                         // miniumSize: Size(60.w, 60.h),
                         onPressed: () {

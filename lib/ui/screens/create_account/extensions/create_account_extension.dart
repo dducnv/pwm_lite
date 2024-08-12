@@ -430,7 +430,7 @@ extension CreateAccountExtension on CreateAccountMixin {
                                       Navigator.pop(context);
                                     },
                                     leading: SizedBox(
-                                      width: 40.w,
+                                      width: 40.h,
                                       height: 40.h,
                                       child: SvgPicture.asset(
                                         isDarkMode

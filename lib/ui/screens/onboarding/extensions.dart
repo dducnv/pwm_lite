@@ -59,82 +59,86 @@ extension OnboardingExtention on OnboardingScreenState {
         context: context,
         builder: (context) {
           return SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SettingItemWidget(
-                    icon: Icons.arrow_forward_ios_rounded,
-                    titleWidth: MediaQuery.of(context).size.width * 0.5,
-                    title: getText(context, HomeLangDifinition.chinhSachBaoMat),
-                    onTap: () {
-                      Navigator.of(context)
-                          .pushNamed(RoutePaths.privacyPolicyRoute);
-                    },
-                  ),
-                  const SizedBox(height: 10),
-                  SettingItemWidget(
-                    icon: Icons.arrow_forward_ios_rounded,
-                    titleWidth: MediaQuery.of(context).size.width * 0.5,
-                    title: getText(context, HomeLangDifinition.dieuKhoanDichVu),
-                    onTap: () {
-                      Navigator.of(context)
-                          .pushNamed(RoutePaths.termsOfServiceRoute);
-                    },
-                  ),
-                  const SizedBox(height: 5),
-                  ValueListenableBuilder(
-                    valueListenable: isDegreed,
-                    builder: ((context, value, child) {
-                      return Column(
-                        children: [
-                          Row(
-                            children: [
-                              Checkbox(
-                                  value: value,
-                                  onChanged: (value) {
-                                    isDegreed.value = value!;
-                                  }),
-                              Expanded(
-                                child: GestureDetector(
-                                  onTap: () {
-                                    isDegreed.value = !isDegreed.value;
-                                  },
-                                  child: Text(
-                                    getText(
-                                        context,
-                                        HomeLangDifinition
-                                            .dongYVoiChinhSachVaDieuKhoan),
-                                    maxLines: 2,
-                                    style: TextStyle(
-                                      fontSize: 14.sp,
+            child: SizedBox(
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SettingItemWidget(
+                      icon: Icons.arrow_forward_ios_rounded,
+                      titleWidth: 250,
+                      title:
+                          getText(context, HomeLangDifinition.chinhSachBaoMat),
+                      onTap: () {
+                        Navigator.of(context)
+                            .pushNamed(RoutePaths.privacyPolicyRoute);
+                      },
+                    ),
+                    const SizedBox(height: 10),
+                    SettingItemWidget(
+                      icon: Icons.arrow_forward_ios_rounded,
+                      titleWidth: 250,
+                      title:
+                          getText(context, HomeLangDifinition.dieuKhoanDichVu),
+                      onTap: () {
+                        Navigator.of(context)
+                            .pushNamed(RoutePaths.termsOfServiceRoute);
+                      },
+                    ),
+                    const SizedBox(height: 5),
+                    ValueListenableBuilder(
+                      valueListenable: isDegreed,
+                      builder: ((context, value, child) {
+                        return Column(
+                          children: [
+                            Row(
+                              children: [
+                                Checkbox(
+                                    value: value,
+                                    onChanged: (value) {
+                                      isDegreed.value = value!;
+                                    }),
+                                Expanded(
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      isDegreed.value = !isDegreed.value;
+                                    },
+                                    child: Text(
+                                      getText(
+                                          context,
+                                          HomeLangDifinition
+                                              .dongYVoiChinhSachVaDieuKhoan),
+                                      maxLines: 2,
+                                      style: TextStyle(
+                                        fontSize: 14.sp,
+                                      ),
+                                      overflow: TextOverflow.ellipsis,
                                     ),
-                                    overflow: TextOverflow.ellipsis,
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 16),
-                          CustomButtonWidget(
-                              isLoadingButton: !value,
-                              kMargin: 0,
-                              onPressed: () async {
-                                await SecureStorage.instance.save(
-                                    SecureStorageKeys.fistOpenApp.name,
-                                    "false");
-                                dataShared.initCategory();
-                                checkIsRegister();
-                              },
-                              text:
-                                  getText(context, HomeLangDifinition.tiepTuc)),
-                        ],
-                      );
-                    }),
-                  )
-                ],
+                              ],
+                            ),
+                            const SizedBox(height: 16),
+                            CustomButtonWidget(
+                                isLoadingButton: !value,
+                                kMargin: 0,
+                                onPressed: () async {
+                                  await SecureStorage.instance.save(
+                                      SecureStorageKeys.fistOpenApp.name,
+                                      "false");
+                                  dataShared.initCategory();
+                                  checkIsRegister();
+                                },
+                                text: getText(
+                                    context, HomeLangDifinition.tiepTuc)),
+                          ],
+                        );
+                      }),
+                    )
+                  ],
+                ),
               ),
             ),
           );

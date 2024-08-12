@@ -19,7 +19,7 @@ class CategoryManagerScreen extends StatelessWidget {
         tabletBody: MobileView(
           viewModel: viewModel,
         ),
-        desktopBody: DesktopView(
+        desktopBody: MobileView(
           viewModel: viewModel,
         ),
       );

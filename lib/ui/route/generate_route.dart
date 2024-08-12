@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cyber_safe/ui/widgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cyber_safe/ui/route.dart';
@@ -24,6 +25,9 @@ class AppGenerateRoute {
         break;
       case RoutePaths.settingRoute:
         widget = const SettingScreen();
+        break;
+      case RoutePaths.createAccountRoute:
+        widget = const CreateAccountScreen();
         break;
       case RoutePaths.detailsAccountRoute:
         final args = settings.arguments as Map<String, dynamic>;
@@ -57,6 +61,9 @@ class AppGenerateRoute {
       case RoutePaths.fqaRoute:
         widget = const FqaScreen();
         break;
+      case RoutePaths.advancedVersionRoute:
+        widget = const AdvancedVersion();
+        break;
       default:
         widget = Scaffold(
           body: Center(
@@ -79,10 +86,26 @@ class AppGenerateRoute {
 
               var tween =
                   Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-
-              return SlideTransition(
-                position: animation.drive(tween),
-                child: child,
+              return ResponsiveLayout(
+                desktopBody: DesktopLayout(
+                  isHideSideBar: settings.name == RoutePaths.localAuthRoute ||
+                      settings.name == RoutePaths.registerRoute ||
+                      settings.name == RoutePaths.onboardingRoute ||
+                      settings.name == RoutePaths.termsOfServiceRoute ||
+                      settings.name == RoutePaths.privacyPolicyRoute,
+                  body: SlideTransition(
+                    position: animation.drive(tween),
+                    child: child,
+                  ),
+                ),
+                mobileBody: SlideTransition(
+                  position: animation.drive(tween),
+                  child: child,
+                ),
+                tabletBody: SlideTransition(
+                  position: animation.drive(tween),
+                  child: child,
+                ),
               );
             },
           );

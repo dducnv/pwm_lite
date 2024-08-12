@@ -24,7 +24,7 @@ class ChangeLangWidget extends StatelessWidget {
             onTap();
           },
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 20.h),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

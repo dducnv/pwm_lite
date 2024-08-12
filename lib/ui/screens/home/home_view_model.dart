@@ -46,6 +46,8 @@ class HomeViewModel extends BaseViewModel {
   ValueNotifier<bool> isAccountEmpty = ValueNotifier(false);
   ValueNotifier<double> progressValueUpdateKey = ValueNotifier(0.0);
 
+  ValueNotifier<bool> isShowSearchDesktop = ValueNotifier(false);
+
   DataShared get dataShared => DataShared.instance;
 
   Timer? _debounce;

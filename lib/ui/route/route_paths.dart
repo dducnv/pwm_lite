@@ -15,4 +15,5 @@ class RoutePaths {
   static const String privacyPolicyRoute = '/privacy-policy';
   static const String termsOfServiceRoute = '/terms-of-service';
   static const String aboutRoute = '/about';
+  static const String advancedVersionRoute = '/advanced-version';
 }

@@ -129,7 +129,7 @@ class OnboardingScreenState extends State<OnboardingScreen> {
         borderRadius: BorderRadius.circular(30),
         child: Image.asset(
           'assets/images/app_logo.png',
-          width: 100.w,
+          width: 100.h,
           height: 100.h,
         ),
       ),
@@ -216,7 +216,7 @@ class OnboardingScreenState extends State<OnboardingScreen> {
   ) {
     return CustomButtonWidget(
       borderRaidus: 100,
-      width: 75.w,
+      width: 75.h,
       height: 75.h,
       onPressed: () {
         privacyBottomSheet(context);

@@ -187,6 +187,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
             autofillHints: widget.autofillHints,
             decoration: InputDecoration(
               filled: true,
+              prefixIcon: widget.prefixIcon,
               alignLabelWithHint: false,
               helperStyle: const TextStyle(color: Colors.green),
               counterText: '',
@@ -194,7 +195,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
               border: OutlineInputBorder(
                 borderRadius: widget.borderRadius ?? BorderRadius.circular(10),
                 borderSide: BorderSide(
-                    color: Theme.of(context).colorScheme.surfaceVariant),
+                    color:
+                        Theme.of(context).colorScheme.surfaceContainerHighest),
               ),
               isDense: true,
               hintText: widget.hintText,
@@ -216,16 +218,17 @@ class _CustomTextFieldState extends State<CustomTextField> {
                   OutlineInputBorder(
                     borderSide: BorderSide(
                         color: widget.borderColor ??
-                            Theme.of(context).colorScheme.surfaceVariant),
+                            Theme.of(context)
+                                .colorScheme
+                                .surfaceContainerHighest),
                     borderRadius: widget.borderRadius ??
                         const BorderRadius.all(Radius.circular(10)),
                   ),
               suffixIcon: widget.isObscure == true
                   ? IconButton(
                       style: ButtonStyle(
-                        padding: MaterialStateProperty.all(EdgeInsets.zero),
-                        minimumSize:
-                            MaterialStateProperty.all(Size(25.w, 25.h)),
+                        padding: WidgetStateProperty.all(EdgeInsets.zero),
+                        minimumSize: WidgetStateProperty.all(Size(25.w, 25.h)),
                       ),
                       icon: passwordVisible
                           ? Icon(Icons.visibility, size: 18.sp)

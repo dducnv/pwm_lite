@@ -5,7 +5,6 @@ import 'package:cyber_safe/ui/resource/language/definitions.dart';
 import 'package:cyber_safe/ui/resource/size_text_icon.dart';
 import 'package:cyber_safe/ui/route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
@@ -66,6 +65,23 @@ class AppDrawer extends StatelessWidget {
                 Navigator.of(context).pop();
                 Navigator.of(context)
                     .pushNamed(RoutePaths.categoryManagerRoute);
+              },
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.diamond,
+                size: 24.sp,
+              ),
+              title: Text(
+                getText(context, HomeLangDifinition.phienBanNangCao),
+                style: drawerTitleStyle,
+              ),
+              onTap: () async {
+                Navigator.of(context).pop();
+                openUrl(
+                    "https://play.google.com/store/apps/details?id=com.duc_app_lab_ind.cyber_safe");
+                // Navigator.of(context)
+                //     .pushNamed(RoutePaths.advancedVersionRoute);
               },
             ),
             ListTile(

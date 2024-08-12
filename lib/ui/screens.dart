@@ -30,3 +30,4 @@ export './screens/about_app/about_app_screen.dart';
 export './screens/about_app/privacy_policy_screen.dart';
 export './screens/about_app/terms_of_service_screen.dart';
 export './screens/onboarding/onboarding_screen.dart';
+export './screens/about_app/advanced_version.dart';

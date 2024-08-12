@@ -8,6 +8,7 @@ export './widgets/item_custom/item_private_value.dart';
 export './widgets/text_field/custom_text_field.dart';
 export './widgets/text/app_text.dart';
 export './widgets/responsive_layout/responsive_layout.dart';
+export './widgets/responsive_layout/desktop_layout.dart';
 export './widgets/app_pin_code_fields/app_pin_code_fields.dart';
 export './widgets/modal_progress_hud/modal_progress_hub.dart';
 export './widgets/loading/show_loading.dart';

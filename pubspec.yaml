@@ -1,7 +1,7 @@
 name: cyber_safe
-description: "Cyber Safe is a password manager that helps you to store your passwords securely. It uses the ObjectBox database to store the passwords and encrypts them using the AES algorithm. The app also supports biometric authentication and dark mode."
+description: "CyberSafe is a password manager that helps you to store your passwords securely. It uses the ObjectBox database to store the passwords and encrypts them using the AES algorithm. The app also supports biometric authentication and dark mode."
 publish_to: "none"
-version: 1.0.2+3
+version: 1.0.5+6
 
 environment:
   sdk: ">=3.3.4 <4.0.0"
@@ -23,6 +23,7 @@ dependencies:
   #provider
   provider: 6.1.2
   path_provider: ^2.1.3
+  path: ^1.9.0
   #utils
   intl: 0.19.0
   get_it: 7.7.0

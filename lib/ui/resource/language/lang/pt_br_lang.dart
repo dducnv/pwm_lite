@@ -47,6 +47,7 @@ HashMap languageBrazilianPortuguese = HashMap<dynamic, String>()
     HomeLangDifinition.nhaPhatTrien: 'Desenvolvedor',
     HomeLangDifinition.yeuCauTinhNang: 'Solicitação de recurso',
     HomeLangDifinition.cauHoiThuongGap: 'Perguntas frequentes',
+    HomeLangDifinition.phienBanNangCao: 'Versão avançada',
 
     //createAccount
     CreateAccountLangDif.taoTaiKhoan: "Criar conta",

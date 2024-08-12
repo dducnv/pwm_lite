@@ -48,6 +48,7 @@ HashMap languageVn = HashMap<dynamic, String>()
     HomeLangDifinition.nhaPhatTrien: 'Nhà phát triển',
     HomeLangDifinition.yeuCauTinhNang: 'Yêu cầu tính năng',
     HomeLangDifinition.cauHoiThuongGap: 'Câu hỏi thường gặp',
+    HomeLangDifinition.phienBanNangCao: 'Phiên bản nâng cao',
 
     //create account
     CreateAccountLangDif.taoTaiKhoan: "Tạo tài khoản",

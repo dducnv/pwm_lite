@@ -121,7 +121,7 @@ extension SettingExtension on SettingMixin {
                                     itemCount: 5,
                                     minValue: 1,
                                     maxValue: 30,
-                                    itemWidth: 70.w,
+                                    itemWidth: 70.h,
                                     itemHeight: 70.h,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(16),

@@ -16,23 +16,26 @@ class ResponsiveLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Size screenSize = MediaQuery.of(context).size;
+
     return ValueListenableBuilder(
       valueListenable: DataShared.instance.isLoadding,
       builder: (context, value, child) {
         return ModalProgressHUD(
-            inAsyncCall: value,
-            progressIndicator: const ShowLoading(),
-            child: LayoutBuilder(
-              builder: (context, constraints) {
-                if (constraints.maxWidth < 500) {
-                  return mobileBody;
-                } else if (constraints.maxWidth < 1100) {
-                  return tabletBody;
-                } else {
-                  return desktopBody;
-                }
-              },
-            ));
+          inAsyncCall: value,
+          progressIndicator: const ShowLoading(),
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              if (screenSize.width < 400) {
+                return mobileBody;
+              } else if (screenSize.width < 900) {
+                return tabletBody;
+              } else {
+                return desktopBody;
+              }
+            },
+          ),
+        );
       },
     );
   }

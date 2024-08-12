@@ -46,6 +46,7 @@ HashMap languageKorea = HashMap<dynamic, String>()
     HomeLangDifinition.nhaPhatTrien: '개발자',
     HomeLangDifinition.yeuCauTinhNang: '기능 요청',
     HomeLangDifinition.cauHoiThuongGap: '자주 묻는 질문',
+    HomeLangDifinition.phienBanNangCao: '고급 버전',
 
     //createAccount
     CreateAccountLangDif.taoTaiKhoan: "계정 만들기",

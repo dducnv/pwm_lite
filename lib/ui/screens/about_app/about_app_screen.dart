@@ -3,7 +3,6 @@ import 'package:cyber_safe/core/utils.dart';
 import 'package:cyber_safe/main.dart';
 import 'package:cyber_safe/ui/resource/language/definitions.dart';
 import 'package:cyber_safe/ui/widgets.dart';
-import 'package:cyber_safe/ui/widgets/card/card_custom_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -148,7 +147,7 @@ class AboutAppScreen extends StatelessWidget {
         borderRadius: BorderRadius.circular(25),
         child: Image.asset(
           'assets/images/app_logo.png',
-          width: 80.w,
+          width: 80.h,
           height: 80.h,
         ),
       ),

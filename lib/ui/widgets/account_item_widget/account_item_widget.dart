@@ -48,7 +48,7 @@ class AccountItemWidget extends StatelessWidget {
               ? branchLogo.branchLogoPathDarkMode!
               : branchLogo.branchLogoPathLightMode!,
           fit: BoxFit.contain,
-          width: 50.w,
+          width: 50.h,
           height: 50.h,
         ),
       );
@@ -72,8 +72,8 @@ class AccountItemWidget extends StatelessWidget {
           });
         },
         child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 10,
+          padding: EdgeInsets.symmetric(
+            horizontal: 10.h,
           ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -88,7 +88,7 @@ class AccountItemWidget extends StatelessWidget {
                     color: Colors.grey.withOpacity(0.2),
                     child: Center(
                       child: SizedBox(
-                        width: 50.w,
+                        width: 50.h,
                         height: 50.h,
                         child: Center(
                           child: ValueListenableBuilder(
@@ -130,7 +130,7 @@ class AccountItemWidget extends StatelessWidget {
                           ),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 14.2),
+                    padding: EdgeInsets.symmetric(vertical: 14.h),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,

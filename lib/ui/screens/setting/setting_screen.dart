@@ -11,24 +11,22 @@ class SettingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BaseView<SettingViewModel>(
-        onViewModelReady: (viewModel) {
-          viewModel.init();
-          viewModel.isOpenAutoLock.value = context.read<RootPR>().isOpenAutoLock;
-          viewModel.timeAutoLock.value = context.read<RootPR>().timeAutoLock;
-        },
-        builder: (context, viewModel, _) {
-          return ResponsiveLayout(
-            mobileBody: MobileView(
-              viewModel: viewModel,
-            ),
-            tabletBody: MobileView(
-              viewModel: viewModel,
-            ),
-            desktopBody: DesktopView(
-              viewModel: viewModel,
-            ),
-          );
-        });
+    return BaseView<SettingViewModel>(onViewModelReady: (viewModel) {
+      viewModel.init();
+      viewModel.isOpenAutoLock.value = context.read<RootPR>().isOpenAutoLock;
+      viewModel.timeAutoLock.value = context.read<RootPR>().timeAutoLock;
+    }, builder: (context, viewModel, _) {
+      return ResponsiveLayout(
+        mobileBody: MobileView(
+          viewModel: viewModel,
+        ),
+        tabletBody: MobileView(
+          viewModel: viewModel,
+        ),
+        desktopBody: MobileView(
+          viewModel: viewModel,
+        ),
+      );
+    });
   }
 }

@@ -54,9 +54,9 @@ class AppPinCodeFieldsState extends State<AppPinCodeFields> {
     return Form(
       key: widget.formKey,
       child: Padding(
-        padding: EdgeInsets.symmetric(
-          vertical: 8.h,
-          horizontal: 50.w,
+        padding: const EdgeInsets.symmetric(
+          vertical: 8,
+          horizontal: 50,
         ),
         child: PinCodeTextField(
           appContext: context,
@@ -76,13 +76,15 @@ class AppPinCodeFieldsState extends State<AppPinCodeFields> {
           pinTheme: PinTheme(
               shape: PinCodeFieldShape.underline,
               borderRadius: BorderRadius.circular(5),
-              fieldHeight: 50.h,
-              fieldWidth: 40.w,
+              fieldHeight: 60.h,
+              fieldWidth: 40.h,
               borderWidth: 10,
-              inactiveFillColor: Theme.of(context).colorScheme.surfaceVariant,
+              inactiveFillColor:
+                  Theme.of(context).colorScheme.surfaceContainerHighest,
               selectedColor: Theme.of(context).colorScheme.primary,
-              selectedFillColor: Theme.of(context).colorScheme.surfaceVariant,
-              activeFillColor: Theme.of(context).colorScheme.background,
+              selectedFillColor:
+                  Theme.of(context).colorScheme.surfaceContainerHighest,
+              activeFillColor: Theme.of(context).colorScheme.surface,
               activeColor: Theme.of(context).colorScheme.primary),
           cursorColor: Theme.of(context).colorScheme.primary,
           animationDuration: const Duration(milliseconds: 300),

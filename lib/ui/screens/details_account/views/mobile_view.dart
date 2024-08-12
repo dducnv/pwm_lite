@@ -60,7 +60,7 @@ class _MobileViewState extends State<MobileView> with AccountDetailsMixin {
                           child: Column(
                             children: [
                               Container(
-                                width: 70.w,
+                                width: 70.h,
                                 height: 70.h,
                                 decoration: BoxDecoration(
                                   color: Theme.of(context)

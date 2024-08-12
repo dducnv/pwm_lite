@@ -20,15 +20,6 @@ class AppbarCustom extends StatelessWidget implements PreferredSizeWidget {
       elevation: 0,
       scrolledUnderElevation: 0,
       shadowColor: Colors.transparent,
-      leading: IconButton(
-        icon: Icon(
-          Icons.arrow_back,
-          size: 21.sp,
-        ),
-        onPressed: () {
-          onPressBack();
-        },
-      ),
       title: Text(
         title,
         style: appbarTitleStyle,
