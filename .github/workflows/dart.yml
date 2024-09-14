@@ -13,17 +13,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # Setup Flutter
+      # Setup Flutter with a specific version
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.7.0' # Chỉ định phiên bản cụ thể hoặc 'stable'
+          flutter-version: '3.10.0' # Hoặc phiên bản cụ thể cần thiết để phù hợp với Dart SDK
 
       - name: Install dependencies
         run: flutter pub get
-
-      # Uncomment this step to verify the use of 'flutter format' on each commit.
-      # - name: Verify formatting
-      #   run: flutter format --set-exit-if-changed .
 
       - name: Analyze project source
         run: flutter analyze
