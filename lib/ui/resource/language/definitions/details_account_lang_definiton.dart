@@ -1,0 +1,20 @@
+enum DetailsAccountLangDef {
+  thongTinTaiKhoan,
+  danhMuc,
+  ghiChu,
+  thongTinTuyChinh,
+  maXacThucTOTP,
+  sua,
+  luu,
+  matKhau,
+  tenTaiKhoan,
+  banCoChacChanMuonXoaTaiKhoanNay,
+  xoaTaiKhoan,
+  xoaTaiKhoanThanhCong,
+  xoaTaiKhoanThatBai,
+  dong,
+  capNhatMatKhauLanCuoi,
+  lichSuMatKhau,
+  chiTiet,
+  capNhatVao
+}
