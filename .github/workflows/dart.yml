@@ -1,8 +1,3 @@
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-
 name: Flutter
 
 on:
@@ -18,24 +13,20 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # This workflow uses the latest stable version of the Flutter SDK.
-      # You can specify other versions if desired, see documentation here:
-      # https://github.com/subosito/flutter-action
+      # Setup Flutter
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: 'stable' # You can change to a specific version if needed
+          flutter-version: '3.7.0' # Chỉ định phiên bản cụ thể hoặc 'stable'
 
       - name: Install dependencies
         run: flutter pub get
 
-      # Verify code formatting (uncomment if needed)
+      # Uncomment this step to verify the use of 'flutter format' on each commit.
       # - name: Verify formatting
       #   run: flutter format --set-exit-if-changed .
 
-      # Analyze project source code
       - name: Analyze project source
         run: flutter analyze
 
-      # Run Flutter tests
       - name: Run tests
         run: flutter test
