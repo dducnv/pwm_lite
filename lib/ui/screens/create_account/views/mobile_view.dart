@@ -1,5 +1,4 @@
 import 'package:cyber_safe/core/utils.dart';
-import 'package:cyber_safe/ui/provider.dart';
 import 'package:cyber_safe/ui/resource/language/definitions.dart';
 import 'package:cyber_safe/ui/screens/create_account/components/create_form.dart';
 import 'package:cyber_safe/ui/screens/create_account/extentions.dart';
@@ -7,9 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:cyber_safe/ui/screens.dart';
 import 'package:cyber_safe/ui/widgets.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:password_strength_checker/password_strength_checker.dart';
-import 'package:provider/provider.dart';
 
 class MobileView extends StatefulWidget {
   final CreateAccountViewModel viewModel;
