@@ -24,7 +24,7 @@ class CreateAccountScreen extends StatelessWidget {
         tabletBody: MobileView(
           viewModel: viewModel,
         ),
-        desktopBody: MobileView(
+        desktopBody: DesktopView(
           viewModel: viewModel,
         ),
       );

@@ -3,6 +3,7 @@ import 'package:cyber_safe/ui/resource/language/definitions.dart';
 import 'package:cyber_safe/ui/screens.dart';
 import 'package:cyber_safe/ui/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class DesktopView extends StatefulWidget {
   final LocalAuthViewModel viewModel;
@@ -45,7 +46,7 @@ class _DesktopViewState extends State<DesktopView> {
             height: 20.h,
           ),
           Container(
-            constraints: const BoxConstraints(maxWidth: 400),
+            constraints: const BoxConstraints(maxWidth: 430),
             child: AppPinCodeFields(
               autoFocus: widget.viewModel.focusNode.hasFocus,
               key: widget.viewModel.appPinCodeKey,
@@ -58,7 +59,9 @@ class _DesktopViewState extends State<DesktopView> {
                 }
                 return null;
               },
-              onCompleted: (value, state) {},
+              onCompleted: (value, state) {
+                widget.viewModel.onLogin();
+              },
               onChanged: (value) {},
               textEditingController: widget.viewModel.textEditingController,
             ),
@@ -67,7 +70,7 @@ class _DesktopViewState extends State<DesktopView> {
           //   height: 5,
           // ),
           Container(
-            constraints: const BoxConstraints(maxWidth: 400),
+            constraints: const BoxConstraints(maxWidth: 430),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [

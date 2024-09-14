@@ -46,7 +46,7 @@ class ChangeLangWidget extends StatelessWidget {
                         const SizedBox(width: 8),
                         Icon(
                           Icons.arrow_forward_ios,
-                          size: 24.sp,
+                          size: 24,
                           color: Theme.of(context).colorScheme.onSurface,
                         ),
                       ],

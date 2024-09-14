@@ -1,6 +1,7 @@
 import 'package:cyber_safe/core/utils.dart';
 import 'package:cyber_safe/ui/resource/language/definitions.dart';
 import 'package:cyber_safe/ui/resource/size_text_icon.dart';
+import 'package:cyber_safe/ui/route/route_paths.dart';
 import 'package:cyber_safe/ui/screens.dart';
 import 'package:cyber_safe/ui/widgets.dart';
 import 'package:flutter/material.dart';
@@ -155,7 +156,12 @@ class MobileView extends StatelessWidget {
                         children: [
                           InkWell(
                             onTap: () {
-                              Navigator.of(context).pop();
+                              if (Navigator.of(context).canPop()) {
+                                Navigator.of(context).pop();
+                              } else {
+                                Navigator.of(context).pushNamedAndRemoveUntil(
+                                    RoutePaths.homeRoute, (route) => false);
+                              }
                             },
                             borderRadius: BorderRadius.circular(100),
                             child: Padding(

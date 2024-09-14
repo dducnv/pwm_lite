@@ -3,6 +3,7 @@ import 'package:cyber_safe/ui/resource/language/definitions.dart';
 import 'package:cyber_safe/ui/screens.dart';
 import 'package:cyber_safe/ui/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
 class CreatePinCodeWidget extends StatefulWidget {
@@ -14,6 +15,20 @@ class CreatePinCodeWidget extends StatefulWidget {
 }
 
 class _CreatePinCodeWidgetState extends State<CreatePinCodeWidget> {
+  var focusNode = FocusNode();
+
+  @override
+  void initState() {
+    super.initState();
+    focusNode.onKeyEvent = (node, event) {
+      if (event.logicalKey == LogicalKeyboardKey.enter) {
+        widget.viewModel.onSavePinCode();
+        return KeyEventResult.handled;
+      }
+      return KeyEventResult.ignored;
+    };
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -32,18 +47,21 @@ class _CreatePinCodeWidgetState extends State<CreatePinCodeWidget> {
           height: 20,
         ),
         Container(
-          constraints: const BoxConstraints(maxWidth: 400),
+          constraints: const BoxConstraints(maxWidth: 430),
           child: AppPinCodeFields(
             key: widget.viewModel.appPinCodeCreateKey,
             formKey: widget.viewModel.formCreateKey,
             autoFocus: true,
+            focusNode: focusNode,
             validator: (value) {
               if (value!.length < 6) {
                 return getText(context, LocalAuthLangDef.vuiLongNhapDayDuMaPin);
               }
               return null;
             },
-            onCompleted: (value, state) {},
+            onCompleted: (value, state) {
+              // widget.viewModel.onSavePinCode();
+            },
             onChanged: (value) {
               widget.viewModel.pinCodeCreate = value;
             },

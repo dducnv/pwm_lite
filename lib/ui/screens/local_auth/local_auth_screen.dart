@@ -3,6 +3,7 @@ import 'package:cyber_safe/ui/screens.dart';
 import 'package:cyber_safe/ui/screens/local_auth/views.dart';
 import 'package:cyber_safe/ui/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 class LocalAuthScreen extends StatefulWidget {
@@ -32,6 +33,15 @@ class _LocalAuthScreenState extends State<LocalAuthScreen> {
         isPinFileImport: widget.isPinFileImport,
         onCallBackWithPin: widget.onCallBackWithPin,
       );
+
+      viewModel.focusNode.onKeyEvent = (node, event) {
+        if (event.logicalKey == LogicalKeyboardKey.enter) {
+          viewModel.onLogin();
+          return KeyEventResult.handled;
+        }
+        return KeyEventResult.ignored;
+      };
+
       FlutterNativeSplash.remove();
     }, builder: (context, viewModel, _) {
       return ResponsiveLayout(

@@ -14,21 +14,6 @@ class DesktopView extends StatefulWidget {
 class _DesktopViewState extends State<DesktopView> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: widget.viewModel.isChangePinCode
-            ? AppBar(
-                backgroundColor: Colors.transparent,
-                shadowColor: Colors.transparent,
-                elevation: 0,
-              )
-            : null,
-        body: PageView(
-          controller: widget.viewModel.pageController,
-          physics: const NeverScrollableScrollPhysics(),
-          children: [
-            CreatePinCodeWidget(viewModel: widget.viewModel),
-            ConfirmPinCodeWidget(viewModel: widget.viewModel),
-          ],
-        ));
+    return const SizedBox.shrink();
   }
 }

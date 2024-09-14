@@ -3,6 +3,7 @@ import 'package:cyber_safe/ui/resource/language/definitions.dart';
 import 'package:cyber_safe/ui/screens.dart';
 import 'package:cyber_safe/ui/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class MobileView extends StatefulWidget {
   final LocalAuthViewModel viewModel;

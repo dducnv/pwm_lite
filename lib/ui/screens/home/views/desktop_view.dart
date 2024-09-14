@@ -1,6 +1,7 @@
 import 'package:cyber_safe/core/domains.dart';
 import 'package:cyber_safe/core/utils.dart';
 import 'package:cyber_safe/ui/provider.dart';
+import 'package:cyber_safe/ui/resource/brand_logo.dart';
 import 'package:cyber_safe/ui/resource/language/definitions.dart';
 import 'package:cyber_safe/ui/route.dart';
 import 'package:cyber_safe/ui/screens/home/extensions.dart';
@@ -8,6 +9,7 @@ import 'package:cyber_safe/ui/screens/home/widgets.dart';
 import 'package:cyber_safe/ui/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:cyber_safe/ui/screens.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
@@ -30,41 +32,100 @@ class _DesktopViewState extends State<DesktopView> with HomeMixin {
         viewModel: widget.viewModel,
         isDesktop: true,
       ),
+      floatingActionButtonAnimator: FloatingActionButtonAnimator.noAnimation,
+      floatingActionButton: SizedBox(
+        width: 65.h,
+        height: 65.h,
+        child: FittedBox(
+          child: FloatingActionButton(
+            shape: const CircleBorder(),
+            onPressed: () async {
+              if (DataShared.instance.isUpdatedVersionEncryptKey.value) {
+                showRequestUpdateVersionKey();
+                return;
+              }
+              dynamic isPop = await Navigator.of(context)
+                  .pushNamed(RoutePaths.createAccountRoute, arguments: {
+                "categoryModel": widget.viewModel.categorySelected.value
+              });
+              if (isPop == null) {
+                return;
+              }
+              Future.delayed(const Duration(milliseconds: 300), () {
+                itemScrollController.scrollTo(
+                    alignment: -0.2,
+                    index: widget.viewModel.dataShared.categoriesList.value
+                        .indexWhere(
+                            (element) => element.id == isPop['category'].id),
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.easeInOut);
+                widget.viewModel.handleFilterByCategory(isPop['category']);
+              });
+            },
+            child: Icon(
+              Icons.add,
+              size: 18.sp,
+            ),
+          ),
+        ),
+      ),
       body: Column(
         children: [
           const SizedBox(height: 10),
-          CustomTextField(
-              hintText: getText(context, HomeLangDifinition.hintSearch),
-              prefixIcon: Icon(Icons.search, size: 24.sp),
-              controller: widget.viewModel.txtSearchKey,
-              focusChanged: (focus) {
-                if (!focus && widget.viewModel.txtSearchKey.text.isEmpty) {
-                  widget.viewModel.isShowSearchDesktop.value = false;
-                }
-              },
-              onChanged: (p0) {
-                if (p0.isEmpty) {
-                  widget.viewModel.accountList.value.clear();
-                  return;
-                }
-                widget.viewModel.isShowSearchDesktop.value = true;
-                widget.viewModel.handleSearchAccount();
-              },
-              textInputAction: TextInputAction.search,
-              textAlign: TextAlign.left),
-          SizedBox(
-            height: 10.h,
+          Row(
+            children: [
+              Expanded(
+                child: CustomTextField(
+                    hintText: getText(context, HomeLangDifinition.hintSearch),
+                    prefixIcon: Icon(Icons.search, size: 24.sp),
+                    controller: widget.viewModel.txtSearchKey,
+                    focusChanged: (focus) {
+                      if (!focus &&
+                          widget.viewModel.txtSearchKey.text.isEmpty) {
+                        widget.viewModel.isShowSearchDesktop.value = false;
+                      }
+                    },
+                    onChanged: (p0) {
+                      if (p0.isEmpty) {
+                        widget.viewModel.accountList.value.clear();
+                        return;
+                      }
+                      widget.viewModel.isShowSearchDesktop.value = true;
+                      widget.viewModel.handleSearchAccount();
+                    },
+                    textInputAction: TextInputAction.search,
+                    textAlign: TextAlign.left),
+              ),
+              const SizedBox(width: 10),
+              ValueListenableBuilder<bool>(
+                valueListenable: widget.viewModel.isShowSearchDesktop,
+                builder: (context, isShowSearch, child) {
+                  return isShowSearch
+                      ? IconButton(
+                          onPressed: () {
+                            widget.viewModel.txtSearchKey.clear();
+                            widget.viewModel.isShowSearchDesktop.value = false;
+                          },
+                          icon: const Icon(Icons.close))
+                      : const SizedBox.shrink();
+                },
+              ),
+            ],
           ),
-          AnimatedSwitcher(
-            duration: const Duration(milliseconds: 300),
-            child: ValueListenableBuilder<bool>(
-              valueListenable: widget.viewModel.isShowSearchDesktop,
-              builder: (context, isShowSearch, child) {
-                return isShowSearch ? searchBody() : homeBody();
-              },
+          const SizedBox(
+            height: 15,
+          ),
+          Expanded(
+            child: AnimatedSwitcher(
+              duration: const Duration(milliseconds: 300),
+              child: ValueListenableBuilder<bool>(
+                valueListenable: widget.viewModel.isShowSearchDesktop,
+                builder: (context, isShowSearch, child) {
+                  return isShowSearch ? searchBody() : homeBody();
+                },
+              ),
             ),
           ),
-          const SizedBox(height: 20),
         ],
       ),
     );
@@ -84,68 +145,98 @@ class _DesktopViewState extends State<DesktopView> with HomeMixin {
               CircularProgressIndicator(),
             ],
           );
+        } else if (accountList.isEmpty ||
+            widget.viewModel.txtSearchKey.text == "") {
+          return Column(
+            children: [
+              const SizedBox(height: 20),
+              Image.asset(
+                "assets/images/exclamation-mark.png",
+                width: 60.h,
+                height: 60.h,
+              ),
+            ],
+          );
         } else {
-          if (accountList.isEmpty || widget.viewModel.txtSearchKey.text == "") {
-            return Column(
-              children: [
-                const SizedBox(height: 20),
-                Image.asset(
-                  "assets/images/exclamation-mark.png",
-                  width: 60.h,
-                  height: 60.h,
-                ),
-              ],
-            );
-          } else {
-            return SingleChildScrollView(
-              child: ListView.builder(
-                itemCount: accountList.length,
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) {
-                  AccountOjbModel account = accountList[index];
-                  return ListTile(
-                    leading: SizedBox(
-                      width: 50.h,
-                      height: 50.h,
-                      child: DecoratedBox(
-                        decoration: BoxDecoration(
-                            color: Colors.grey.withOpacity(0.2),
-                            borderRadius: BorderRadius.circular(15)),
-                        child: Center(
-                          child: Text(
-                            decryptInfo(account.title)[0].toUpperCase(),
-                            style: TextStyle(
-                              fontSize: 20.sp,
-                              fontWeight: FontWeight.bold,
-                              color: isDarkMode ? Colors.white : Colors.black,
-                            ),
+          return Column(
+            children: [
+              Expanded(
+                child: SingleChildScrollView(
+                  child: ListView.builder(
+                    itemCount: accountList.length,
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      AccountOjbModel account = accountList[index];
+                      return ListTile(
+                        leading: Container(
+                          width: 60,
+                          height: 60,
+                          decoration: BoxDecoration(
+                              color: Colors.grey.withOpacity(0.2),
+                              borderRadius: BorderRadius.circular(15)),
+                          child: Center(
+                            child: account.icon == "default" ||
+                                    account.icon == null ||
+                                    allBranchLogos
+                                            .firstWhere((element) =>
+                                                element.branchLogoSlug ==
+                                                account.icon)
+                                            .branchName ==
+                                        null
+                                ? Text(
+                                    decryptInfo(account.title)[0].toUpperCase(),
+                                    style: TextStyle(
+                                      fontSize: 20.sp,
+                                      fontWeight: FontWeight.bold,
+                                      color: isDarkMode
+                                          ? Colors.white
+                                          : Colors.black,
+                                    ))
+                                : Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: SvgPicture.asset(
+                                      width: 50.w,
+                                      height: 50.h,
+                                      isDarkMode
+                                          ? allBranchLogos
+                                              .firstWhere((element) =>
+                                                  element.branchLogoSlug ==
+                                                  account.icon)
+                                              .branchLogoPathDarkMode!
+                                          : allBranchLogos
+                                              .firstWhere((element) =>
+                                                  element.branchLogoSlug ==
+                                                  account.icon)
+                                              .branchLogoPathLightMode!,
+                                    ),
+                                  ),
                           ),
                         ),
-                      ),
-                    ),
-                    title: Text(
-                      decryptInfo(account.title),
-                      style: TextStyle(
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    subtitle: Text(decryptInfo(account.email ?? ""),
-                        style: TextStyle(
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w400,
-                        )),
-                    onTap: () {
-                      Navigator.pushNamed(
-                          context, RoutePaths.detailsAccountRoute,
-                          arguments: {"id": account.id});
+                        title: Text(
+                          decryptInfo(account.title),
+                          style: TextStyle(
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        subtitle: Text(decryptInfo(account.email ?? ""),
+                            style: TextStyle(
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w400,
+                            )),
+                        onTap: () {
+                          Navigator.pushNamed(
+                              context, RoutePaths.detailsAccountRoute,
+                              arguments: {"id": account.id});
+                        },
+                      );
                     },
-                  );
-                },
+                  ),
+                ),
               ),
-            );
-          }
+            ],
+          );
         }
       },
     );
@@ -217,134 +308,145 @@ class _DesktopViewState extends State<DesktopView> with HomeMixin {
             },
           ),
         ),
-        SingleChildScrollView(
-          child: Column(
-            children: [
-              ValueListenableBuilder(
-                  valueListenable: widget.viewModel.dataShared.categoryHomeList,
-                  builder: (context, categories, child) {
-                    widget.viewModel.checKAccountEmpty();
-                    return ValueListenableBuilder(
-                      valueListenable: widget.viewModel.isAccountEmpty,
-                      builder: (context, isAccountEmpty, child) {
-                        return categories.isEmpty || isAccountEmpty
-                            ? Center(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    const SizedBox(
-                                      height: 100,
-                                    ),
-                                    Image.asset(
-                                      "assets/images/exclamation-mark.png",
-                                      width: 60.w,
-                                      height: 60.h,
-                                    ),
-                                    const SizedBox(
-                                      height: 20,
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          getText(context,
-                                              HomeLangDifinition.nhanNut),
-                                          style: TextStyle(
-                                            fontSize: 16.sp,
+        const SizedBox(height: 15),
+        Expanded(
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(25),
+            child: SingleChildScrollView(
+              child: ClipRect(
+                child: Column(
+                  children: [
+                    ValueListenableBuilder(
+                        valueListenable:
+                            widget.viewModel.dataShared.categoryHomeList,
+                        builder: (context, categories, child) {
+                          widget.viewModel.checKAccountEmpty();
+                          return ValueListenableBuilder(
+                            valueListenable: widget.viewModel.isAccountEmpty,
+                            builder: (context, isAccountEmpty, child) {
+                              if (categories.isEmpty || isAccountEmpty) {
+                                return Center(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      const SizedBox(
+                                        height: 100,
+                                      ),
+                                      Image.asset(
+                                        "assets/images/exclamation-mark.png",
+                                        width: 60.w,
+                                        height: 60.h,
+                                      ),
+                                      const SizedBox(
+                                        height: 20,
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            getText(context,
+                                                HomeLangDifinition.nhanNut),
+                                            style: TextStyle(
+                                              fontSize: 16.sp,
+                                            ),
                                           ),
-                                        ),
-                                        const SizedBox(
-                                          width: 5,
-                                        ),
-                                        CircleAvatar(
-                                          child: Icon(
-                                            Icons.add,
-                                            size: 21.sp,
+                                          const SizedBox(
+                                            width: 5,
                                           ),
-                                        ),
-                                        const SizedBox(
-                                          width: 5,
-                                        ),
-                                        Text(
-                                          getText(
-                                            context,
-                                            HomeLangDifinition.deThemTaiKhoan,
+                                          CircleAvatar(
+                                            child: Icon(
+                                              Icons.add,
+                                              size: 21.sp,
+                                            ),
                                           ),
-                                          style: TextStyle(
-                                            fontSize: 16.sp,
+                                          const SizedBox(
+                                            width: 5,
                                           ),
-                                        ),
-                                      ],
-                                    )
-                                  ],
-                                ),
-                              )
-                            : ListView.builder(
-                                shrinkWrap: true,
-                                physics: const NeverScrollableScrollPhysics(),
-                                itemCount: categories.length,
-                                addAutomaticKeepAlives: true,
-                                addRepaintBoundaries: true,
-                                itemBuilder: (context, index) {
-                                  var cateItem = categories[index];
+                                          Text(
+                                            getText(
+                                              context,
+                                              HomeLangDifinition.deThemTaiKhoan,
+                                            ),
+                                            style: TextStyle(
+                                              fontSize: 16.sp,
+                                            ),
+                                          ),
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                );
+                              } else {
+                                return ListView.builder(
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemCount: categories.length,
+                                  addAutomaticKeepAlives: true,
+                                  addRepaintBoundaries: true,
+                                  itemBuilder: (context, index) {
+                                    var cateItem = categories[index];
 
-                                  return cateItem.accounts.isEmpty
-                                      ? const SizedBox.shrink()
-                                      : CardItem<AccountOjbModel>(
-                                          title: cateItem.categoryName,
-                                          items: cateItem.accounts,
-                                          itemBuilder: (item, itemIndex) {
-                                            return AccountItemWidget(
-                                                onCallBackPop: () {
-                                                  // widget.viewModel.handleFilterByCategory(widget
-                                                  //     .viewModel
-                                                  //     .categorySelected
-                                                  //     .value);
-                                                },
-                                                onSelect: () {
-                                                  widget.viewModel
-                                                      .handleSelectAccount(
-                                                          item);
-                                                },
-                                                onLongPress: () {
-                                                  if (widget
-                                                      .viewModel
-                                                      .dataShared
-                                                      .accountSelected
-                                                      .value
-                                                      .isNotEmpty) {
-                                                    widget.viewModel
-                                                        .handleSelectAccount(
-                                                            item);
-                                                    return;
-                                                  }
-                                                  bottomSheetOptionAccountItem(
-                                                      viewModel:
-                                                          widget.viewModel,
-                                                      accountModel: item,
-                                                      context: context);
-                                                },
-                                                onTapSubButton: () {
-                                                  bottomSheetOptionAccountItem(
-                                                      viewModel:
-                                                          widget.viewModel,
-                                                      accountModel: item,
-                                                      context: context);
-                                                },
-                                                accountModel: item,
-                                                isLastItem:
-                                                    cateItem.accounts.length ==
-                                                        itemIndex + 1);
-                                          },
-                                        );
-                                });
-                      },
-                    );
-                  }),
-              const SizedBox(height: 20),
-            ],
+                                    if (cateItem.accounts.isEmpty) {
+                                      return const SizedBox.shrink();
+                                    } else {
+                                      return CardItem<AccountOjbModel>(
+                                        title: cateItem.categoryName,
+                                        items: cateItem.accounts,
+                                        itemBuilder: (item, itemIndex) {
+                                          return AccountItemWidget(
+                                            onCallBackPop: () {
+                                              // widget.viewModel.handleFilterByCategory(widget
+                                              //     .viewModel
+                                              //     .categorySelected
+                                              //     .value);
+                                            },
+                                            onSelect: () {
+                                              widget.viewModel
+                                                  .handleSelectAccount(item);
+                                            },
+                                            onLongPress: () {
+                                              if (widget
+                                                  .viewModel
+                                                  .dataShared
+                                                  .accountSelected
+                                                  .value
+                                                  .isNotEmpty) {
+                                                widget.viewModel
+                                                    .handleSelectAccount(item);
+                                                return;
+                                              }
+                                              bottomSheetOptionAccountItem(
+                                                  viewModel: widget.viewModel,
+                                                  accountModel: item,
+                                                  context: context);
+                                            },
+                                            onTapSubButton: () {
+                                              bottomSheetOptionAccountItem(
+                                                  viewModel: widget.viewModel,
+                                                  accountModel: item,
+                                                  context: context);
+                                            },
+                                            accountModel: item,
+                                            isLastItem:
+                                                cateItem.accounts.length ==
+                                                    itemIndex + 1,
+                                          );
+                                        },
+                                      );
+                                    }
+                                  },
+                                );
+                              }
+                            },
+                          );
+                        }),
+                  ],
+                ),
+              ),
+            ),
           ),
         ),
       ],

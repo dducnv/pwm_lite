@@ -46,7 +46,7 @@ class _TabletViewState extends State<TabletView> {
             height: 20.h,
           ),
           Container(
-            constraints: const BoxConstraints(maxWidth: 400),
+            constraints: const BoxConstraints(maxWidth: 430),
             child: AppPinCodeFields(
               autoFocus: widget.viewModel.focusNode.hasFocus,
               key: widget.viewModel.appPinCodeKey,
@@ -68,7 +68,7 @@ class _TabletViewState extends State<TabletView> {
           //   height: 5,
           // ),
           Container(
-            constraints: const BoxConstraints(maxWidth: 400),
+            constraints: const BoxConstraints(maxWidth: 430),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [

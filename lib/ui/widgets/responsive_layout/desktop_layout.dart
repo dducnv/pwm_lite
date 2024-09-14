@@ -3,7 +3,6 @@ import 'package:cyber_safe/ui/resource.dart';
 import 'package:cyber_safe/ui/resource/language/definitions.dart';
 import 'package:cyber_safe/ui/resource/size_text_icon.dart';
 import 'package:cyber_safe/ui/route.dart';
-import 'package:cyber_safe/ui/widgets.dart';
 import 'package:flutter/material.dart';
 
 class DesktopLayout extends StatelessWidget {
@@ -49,24 +48,6 @@ class DesktopLayout extends StatelessWidget {
                                     ),
                                 const SizedBox(
                                   height: 10,
-                                ),
-                                CustomButtonWidget(
-                                  onPressed: () {
-                                    Navigator.of(context)
-                                        .pushNamedAndRemoveUntil(
-                                            RoutePaths.createAccountRoute,
-                                            (route) => false);
-                                  },
-                                  text: "",
-                                  child: const Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Icon(Icons.add),
-                                      Text("Thêm tài khoản"),
-                                    ],
-                                  ),
                                 ),
                                 ListTile(
                                   leading: Icon(

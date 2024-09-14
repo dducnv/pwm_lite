@@ -76,7 +76,7 @@ class _UseBiometricLoginState extends State<UseBiometricLogin> {
             child: Material(
               color: Colors.transparent,
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [

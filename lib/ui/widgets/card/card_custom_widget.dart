@@ -11,12 +11,12 @@ class CardCustomWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding:
-          padding ?? const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          padding ?? const EdgeInsets.symmetric(horizontal: 16, vertical: 13),
       clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.secondaryContainer,
-          border:
-              Border.all(color: Theme.of(context).colorScheme.surfaceVariant),
+          border: Border.all(
+              color: Theme.of(context).colorScheme.surfaceContainerHighest),
           borderRadius: BorderRadius.circular(borderRadius ?? 25)),
       child: child,
     );

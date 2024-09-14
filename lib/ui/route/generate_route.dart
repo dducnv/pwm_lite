@@ -27,7 +27,10 @@ class AppGenerateRoute {
         widget = const SettingScreen();
         break;
       case RoutePaths.createAccountRoute:
-        widget = const CreateAccountScreen();
+        final args = settings.arguments as Map<String, dynamic>;
+        widget = CreateAccountScreen(
+          categoryModel: args['categoryModel'],
+        );
         break;
       case RoutePaths.detailsAccountRoute:
         final args = settings.arguments as Map<String, dynamic>;

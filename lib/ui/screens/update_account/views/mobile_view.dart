@@ -5,6 +5,7 @@ import 'package:cyber_safe/ui/screens.dart';
 import 'package:cyber_safe/ui/screens/update_account/extensions.dart';
 import 'package:cyber_safe/ui/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:password_strength_checker/password_strength_checker.dart';
 import 'package:provider/provider.dart';
@@ -20,6 +21,19 @@ class MobileView extends StatefulWidget {
 class _MobileViewState extends State<MobileView> with UpdateAccountMixin {
   final _formKey = GlobalKey<FormState>();
   final focus = FocusNode();
+
+  @override
+  void initState() {
+    super.initState();
+    focus.onKeyEvent = (node, event) {
+      if (event.logicalKey == LogicalKeyboardKey.enter) {
+        if (_formKey.currentState!.validate()) {
+          widget.viewModel.handleUpdateAccount(context);
+        }
+      }
+      return KeyEventResult.handled;
+    };
+  }
 
   @override
   void dispose() {

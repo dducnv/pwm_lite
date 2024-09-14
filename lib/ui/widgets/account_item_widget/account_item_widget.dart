@@ -32,7 +32,11 @@ class AccountItemWidget extends StatelessWidget {
         Provider.of<RootPR>(context, listen: false).themeMode == ThemeMode.dark;
     Widget accountIcon() {
       if (accountModel.icon == "default" || accountModel.icon == null) {
-        return Text(decryptInfo(accountModel.title)[0].toUpperCase());
+        return Text(decryptInfo(accountModel.title)[0].toUpperCase(),
+            style: TextStyle(
+              fontSize: 18.sp,
+              fontWeight: FontWeight.w500,
+            ));
       }
       final branchLogo = allBranchLogos.firstWhere(
         (element) => element.branchLogoSlug == accountModel.icon,
@@ -72,8 +76,8 @@ class AccountItemWidget extends StatelessWidget {
           });
         },
         child: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: 10.h,
+          padding: const EdgeInsets.symmetric(
+            horizontal: 10,
           ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -130,7 +134,7 @@ class AccountItemWidget extends StatelessWidget {
                           ),
                   ),
                   child: Padding(
-                    padding: EdgeInsets.symmetric(vertical: 14.h),
+                    padding: const EdgeInsets.symmetric(vertical: 19),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,

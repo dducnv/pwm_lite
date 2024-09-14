@@ -35,7 +35,7 @@ class _MobileViewState extends State<MobileView> with HomeMixin {
         mainAxisSize: MainAxisSize.max,
         children: [
           SizedBox(
-            width: 65.w,
+            width: 65.h,
             height: 65.h,
             child: FittedBox(
               child: FloatingActionButton(

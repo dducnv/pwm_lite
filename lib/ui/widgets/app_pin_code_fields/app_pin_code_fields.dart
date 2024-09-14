@@ -76,8 +76,8 @@ class AppPinCodeFieldsState extends State<AppPinCodeFields> {
           pinTheme: PinTheme(
               shape: PinCodeFieldShape.underline,
               borderRadius: BorderRadius.circular(5),
-              fieldHeight: 60.h,
-              fieldWidth: 40.h,
+              fieldHeight: 60,
+              fieldWidth: 40,
               borderWidth: 10,
               inactiveFillColor:
                   Theme.of(context).colorScheme.surfaceContainerHighest,

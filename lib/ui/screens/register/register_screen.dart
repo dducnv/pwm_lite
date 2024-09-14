@@ -25,7 +25,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         tabletBody: MobileView(
           viewModel: viewModel,
         ),
-        desktopBody: DesktopView(
+        desktopBody: MobileView(
           viewModel: viewModel,
         ),
       );

@@ -82,7 +82,8 @@ class _MobileViewState extends State<MobileView> with SettingMixin {
               const SizedBox(height: 10),
               SettingItemWidget(
                 title: getText(context, SettingLangDef.maPinChoFileSaoLuu),
-                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 suffix: Row(children: [
                   ValueListenableBuilder(
                       valueListenable:
