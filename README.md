@@ -57,7 +57,7 @@ OLD_FILE_ENCRYPT_KEY=
 
 DATETIME_CHANGE_KEY=
 
-VERSION_KEY=1
+VERSION_KEY=
 ```
 
 ### **Generate Obfuscate Key & Database Entity**
