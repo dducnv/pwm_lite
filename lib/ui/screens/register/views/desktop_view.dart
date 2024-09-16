@@ -1,5 +1,4 @@
 import 'package:cyber_safe/ui/screens.dart';
-import 'package:cyber_safe/ui/screens/register/widgets.dart';
 import 'package:flutter/material.dart';
 
 class DesktopView extends StatefulWidget {
