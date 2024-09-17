@@ -3,8 +3,6 @@ import 'package:cyber_safe/ui/resource/language/definitions.dart';
 import 'package:cyber_safe/ui/screens.dart';
 import 'package:cyber_safe/ui/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 
 class CreatePinCodeWidget extends StatefulWidget {
   final RegisterScreenViewModel viewModel;
@@ -15,18 +13,9 @@ class CreatePinCodeWidget extends StatefulWidget {
 }
 
 class _CreatePinCodeWidgetState extends State<CreatePinCodeWidget> {
-  var focusNode = FocusNode();
-
   @override
   void initState() {
     super.initState();
-    focusNode.onKeyEvent = (node, event) {
-      if (event.logicalKey == LogicalKeyboardKey.enter) {
-        widget.viewModel.onSavePinCode();
-        return KeyEventResult.handled;
-      }
-      return KeyEventResult.ignored;
-    };
   }
 
   @override
@@ -52,7 +41,6 @@ class _CreatePinCodeWidgetState extends State<CreatePinCodeWidget> {
             key: widget.viewModel.appPinCodeCreateKey,
             formKey: widget.viewModel.formCreateKey,
             autoFocus: true,
-            focusNode: focusNode,
             validator: (value) {
               if (value!.length < 6) {
                 return getText(context, LocalAuthLangDef.vuiLongNhapDayDuMaPin);
@@ -61,6 +49,9 @@ class _CreatePinCodeWidgetState extends State<CreatePinCodeWidget> {
             },
             onCompleted: (value, state) {
               // widget.viewModel.onSavePinCode();
+            },
+            onEnter: () {
+              widget.viewModel.navigateToConfirmPinCode();
             },
             onChanged: (value) {
               widget.viewModel.pinCodeCreate = value;

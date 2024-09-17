@@ -127,6 +127,7 @@ extension CategoryManagerExtension on CategoryManagerMixin {
               onPressed: () async {
                 bool result = await viewModel.deleteCategory(category);
                 if (result) {
+                  // ignore: use_build_context_synchronously
                   Navigator.pop(context);
                 }
               },
