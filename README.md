@@ -66,7 +66,7 @@ dart run build_runner clean
 dart run build_runner build --delete-conflicting-outputs
 ```
 
-### **Install Pub to run**
+### **Install all packages to run**
 ```bash
 flutter pub get
 ```
