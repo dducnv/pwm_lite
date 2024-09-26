@@ -39,7 +39,7 @@ dependencies:
   url_launcher: ^6.3.0
   
   #ui
-  upgrader: ^10.3.0
+  upgrader: ^11.2.0
   numberpicker: ^2.1.2
   flutter_markdown: ^0.7.1
   flutter_svg: ^2.0.10+1
