@@ -5,19 +5,14 @@ import 'package:cyber_safe/ui/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class DesktopView extends StatefulWidget {
+class DesktopView extends StatelessWidget {
   final LocalAuthViewModel viewModel;
   const DesktopView({super.key, required this.viewModel});
 
   @override
-  State<DesktopView> createState() => _DesktopViewState();
-}
-
-class _DesktopViewState extends State<DesktopView> {
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: widget.viewModel.isVeryfiExportBackup
+      appBar: viewModel.isVeryfiExportBackup
           ? AppBar(
               backgroundColor: Colors.transparent,
               shadowColor: Colors.transparent,
@@ -30,9 +25,9 @@ class _DesktopViewState extends State<DesktopView> {
           Text(
             getText(
                     context,
-                    widget.viewModel.isVeryfiExportBackup
+                    viewModel.isVeryfiExportBackup
                         ? LocalAuthLangDef.nhapMaPin
-                        : widget.viewModel.isPinFileImport
+                        : viewModel.isPinFileImport
                             ? LocalAuthLangDef.nhapMaPinCuaFileSaoLuu
                             : LocalAuthLangDef.dangNhapVoiMaPin)
                 .toUpperCase(),
@@ -48,10 +43,10 @@ class _DesktopViewState extends State<DesktopView> {
           Container(
             constraints: const BoxConstraints(maxWidth: 430),
             child: AppPinCodeFields(
-              autoFocus: widget.viewModel.focusNode.hasFocus,
-              key: widget.viewModel.appPinCodeKey,
-              formKey: widget.viewModel.formKey,
-              focusNode: widget.viewModel.focusNode,
+              autoFocus: viewModel.focusNode.hasFocus,
+              key: viewModel.appPinCodeKey,
+              formKey: viewModel.formKey,
+              focusNode: viewModel.focusNode,
               validator: (value) {
                 if (value!.length < 6) {
                   return getText(
@@ -59,11 +54,12 @@ class _DesktopViewState extends State<DesktopView> {
                 }
                 return null;
               },
-              onCompleted: (value, state) {
-                widget.viewModel.onLogin();
+              onCompleted: (value, state) {},
+              onEnter: () {
+                viewModel.onLogin();
               },
               onChanged: (value) {},
-              textEditingController: widget.viewModel.textEditingController,
+              textEditingController: viewModel.textEditingController,
             ),
           ),
           // const SizedBox(
@@ -94,10 +90,10 @@ class _DesktopViewState extends State<DesktopView> {
                 // ),
                 if (LocalAuthConfig.instance.isAvailableBiometrics &&
                     LocalAuthConfig.instance.isOpenUseBiometric &&
-                    !widget.viewModel.isPinFileImport)
+                    !viewModel.isPinFileImport)
                   IconButton(
                       onPressed: () {
-                        widget.viewModel.onBiometric();
+                        viewModel.onBiometric();
                       },
                       icon: const Icon(Icons.fingerprint)),
               ],
@@ -118,7 +114,7 @@ class _DesktopViewState extends State<DesktopView> {
               width: 75.h,
               height: 75.h,
               onPressed: () {
-                widget.viewModel.onLogin();
+                viewModel.onLogin();
               },
               text: "",
               child: Icon(

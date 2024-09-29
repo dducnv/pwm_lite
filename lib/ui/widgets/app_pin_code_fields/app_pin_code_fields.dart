@@ -1,13 +1,14 @@
 import 'dart:async';
 
-import 'package:cyber_safe/core/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class AppPinCodeFields extends StatefulWidget {
   final FormFieldValidator<String>? validator;
   final Function(String, AppPinCodeFieldsState state) onCompleted;
   final Function(String) onChanged;
+  final Function() onEnter;
   final TextEditingController? textEditingController;
   final Key formKey;
   final bool? autoFocus;
@@ -17,6 +18,7 @@ class AppPinCodeFields extends StatefulWidget {
     super.key,
     required this.validator,
     required this.onCompleted,
+    required this.onEnter,
     required this.onChanged,
     this.textEditingController,
     required this.formKey,
@@ -33,13 +35,25 @@ class AppPinCodeFieldsState extends State<AppPinCodeFields> {
 
   @override
   void initState() {
-    errorController = StreamController<ErrorAnimationType>();
     super.initState();
+    errorController = StreamController<ErrorAnimationType>();
+    HardwareKeyboard.instance.addHandler(
+      (event) => _keyboardCallback(event),
+    );
+  }
+
+  bool _keyboardCallback(KeyEvent event) {
+    if (event.logicalKey == LogicalKeyboardKey.enter) {
+      widget.onEnter();
+      return true;
+    }
+    return false;
   }
 
   @override
   void dispose() {
     errorController.close();
+    HardwareKeyboard.instance.removeHandler(_keyboardCallback);
     super.dispose();
   }
 

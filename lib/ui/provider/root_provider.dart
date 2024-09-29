@@ -69,6 +69,14 @@ class RootPR extends ChangeNotifier {
           _appLanguage = AppLanguage.zh;
         } else if (defaultLocale.contains("pt_BR")) {
           _appLanguage = AppLanguage.pt_br;
+        } else if (defaultLocale.contains("th")) {
+          _appLanguage = AppLanguage.th;
+        } else if (defaultLocale.contains("ru")) {
+          _appLanguage = AppLanguage.ru;
+        } else if (defaultLocale.contains("ms")) {
+          _appLanguage = AppLanguage.ms;
+        } else if (defaultLocale.contains("id")) {
+          _appLanguage = AppLanguage.id;
         } else {
           _appLanguage = AppLanguage.en;
         }
@@ -113,6 +121,14 @@ class RootPR extends ChangeNotifier {
         return languageChina;
       case AppLanguage.pt_br:
         return languageBrazilianPortuguese;
+      case AppLanguage.th:
+        return languageThailand;
+      case AppLanguage.ru:
+        return languageRussia;
+      case AppLanguage.ms:
+        return languageMalaysia;
+      case AppLanguage.id:
+        return languageIndo;
       default:
         return languageVn;
     }

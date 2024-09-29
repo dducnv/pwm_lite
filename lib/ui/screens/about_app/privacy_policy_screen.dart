@@ -37,6 +37,14 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
       pathFile = "assets/markdown/privacy_policy/zh_privacy_policy.md";
     } else if (appLang == AppLanguage.pt_br) {
       pathFile = "assets/markdown/privacy_policy/pt_br_privacy_policy.md";
+    } else if (appLang == AppLanguage.ms) {
+      pathFile = "assets/markdown/privacy_policy/ms_privacy_policy.md";
+    } else if (appLang == AppLanguage.id) {
+      pathFile = "assets/markdown/privacy_policy/id_privacy_policy.md";
+    } else if (appLang == AppLanguage.th) {
+      pathFile = "assets/markdown/privacy_policy/th_privacy_policy.md";
+    } else if (appLang == AppLanguage.ru) {
+      pathFile = "assets/markdown/privacy_policy/ru_privacy_policy.md";
     } else {
       pathFile = "assets/markdown/privacy_policy/en_privacy_policy.md";
     }

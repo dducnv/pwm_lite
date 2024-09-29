@@ -4,20 +4,15 @@ import 'package:cyber_safe/ui/screens.dart';
 import 'package:cyber_safe/ui/widgets.dart';
 import 'package:flutter/material.dart';
 
-class TabletView extends StatefulWidget {
+class TabletView extends StatelessWidget {
   final LocalAuthViewModel viewModel;
 
   const TabletView({super.key, required this.viewModel});
 
   @override
-  State<TabletView> createState() => _TabletViewState();
-}
-
-class _TabletViewState extends State<TabletView> {
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: widget.viewModel.isVeryfiExportBackup
+      appBar: viewModel.isVeryfiExportBackup
           ? AppBar(
               backgroundColor: Colors.transparent,
               shadowColor: Colors.transparent,
@@ -30,9 +25,9 @@ class _TabletViewState extends State<TabletView> {
           Text(
             getText(
                     context,
-                    widget.viewModel.isVeryfiExportBackup
+                    viewModel.isVeryfiExportBackup
                         ? LocalAuthLangDef.nhapMaPin
-                        : widget.viewModel.isPinFileImport
+                        : viewModel.isPinFileImport
                             ? LocalAuthLangDef.nhapMaPinCuaFileSaoLuu
                             : LocalAuthLangDef.dangNhapVoiMaPin)
                 .toUpperCase(),
@@ -48,10 +43,13 @@ class _TabletViewState extends State<TabletView> {
           Container(
             constraints: const BoxConstraints(maxWidth: 430),
             child: AppPinCodeFields(
-              autoFocus: widget.viewModel.focusNode.hasFocus,
-              key: widget.viewModel.appPinCodeKey,
-              formKey: widget.viewModel.formKey,
-              focusNode: widget.viewModel.focusNode,
+              autoFocus: viewModel.focusNode.hasFocus,
+              key: viewModel.appPinCodeKey,
+              formKey: viewModel.formKey,
+              focusNode: viewModel.focusNode,
+              onEnter: () {
+                viewModel.onLogin();
+              },
               validator: (value) {
                 if (value!.length < 6) {
                   return getText(
@@ -61,7 +59,7 @@ class _TabletViewState extends State<TabletView> {
               },
               onCompleted: (value, state) {},
               onChanged: (value) {},
-              textEditingController: widget.viewModel.textEditingController,
+              textEditingController: viewModel.textEditingController,
             ),
           ),
           // const SizedBox(
@@ -92,10 +90,10 @@ class _TabletViewState extends State<TabletView> {
                 // ),
                 if (LocalAuthConfig.instance.isAvailableBiometrics &&
                     LocalAuthConfig.instance.isOpenUseBiometric &&
-                    !widget.viewModel.isPinFileImport)
+                    !viewModel.isPinFileImport)
                   IconButton(
                       onPressed: () {
-                        widget.viewModel.onBiometric();
+                        viewModel.onBiometric();
                       },
                       icon: const Icon(Icons.fingerprint)),
               ],
@@ -116,7 +114,7 @@ class _TabletViewState extends State<TabletView> {
               width: 75.h,
               height: 75.h,
               onPressed: () {
-                widget.viewModel.onLogin();
+                viewModel.onLogin();
               },
               text: "",
               child: Icon(

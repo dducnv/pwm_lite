@@ -47,5 +47,6 @@ enum HomeLangDifinition {
 
   yeuCauTinhNang,
   cauHoiThuongGap,
-  phienBanNangCao
+  phienBanNangCao,
+  yeuCauNgonNgu,
 }

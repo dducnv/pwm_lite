@@ -5,21 +5,15 @@ import 'package:cyber_safe/ui/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class MobileView extends StatefulWidget {
+class MobileView extends StatelessWidget {
   final LocalAuthViewModel viewModel;
   const MobileView({super.key, required this.viewModel});
 
-  @override
-  State<MobileView> createState() => _MobileViewState();
-}
-
-class _MobileViewState extends State<MobileView> {
   // snackBar Widget
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: widget.viewModel.isVeryfiExportBackup
+      appBar: viewModel.isVeryfiExportBackup
           ? AppBar(
               backgroundColor: Colors.transparent,
               shadowColor: Colors.transparent,
@@ -32,9 +26,9 @@ class _MobileViewState extends State<MobileView> {
           Text(
             getText(
                     context,
-                    widget.viewModel.isVeryfiExportBackup
+                    viewModel.isVeryfiExportBackup
                         ? LocalAuthLangDef.nhapMaPin
-                        : widget.viewModel.isPinFileImport
+                        : viewModel.isPinFileImport
                             ? LocalAuthLangDef.nhapMaPinCuaFileSaoLuu
                             : LocalAuthLangDef.dangNhapVoiMaPin)
                 .toUpperCase(),
@@ -47,10 +41,10 @@ class _MobileViewState extends State<MobileView> {
             height: 20,
           ),
           AppPinCodeFields(
-            autoFocus: widget.viewModel.focusNode.hasFocus,
-            key: widget.viewModel.appPinCodeKey,
-            formKey: widget.viewModel.formKey,
-            focusNode: widget.viewModel.focusNode,
+            autoFocus: viewModel.focusNode.hasFocus,
+            key: viewModel.appPinCodeKey,
+            formKey: viewModel.formKey,
+            focusNode: viewModel.focusNode,
             validator: (value) {
               if (value!.length < 6) {
                 return getText(context, LocalAuthLangDef.vuiLongNhapDayDuMaPin);
@@ -58,8 +52,11 @@ class _MobileViewState extends State<MobileView> {
               return null;
             },
             onCompleted: (value, state) {},
+            onEnter: () {
+              viewModel.onLogin();
+            },
             onChanged: (value) {},
-            textEditingController: widget.viewModel.textEditingController,
+            textEditingController: viewModel.textEditingController,
           ),
           // const SizedBox(
           //   height: 5,
@@ -89,10 +86,10 @@ class _MobileViewState extends State<MobileView> {
                 // ),
                 if (LocalAuthConfig.instance.isAvailableBiometrics &&
                     LocalAuthConfig.instance.isOpenUseBiometric &&
-                    !widget.viewModel.isPinFileImport)
+                    !viewModel.isPinFileImport)
                   IconButton(
                       onPressed: () {
-                        widget.viewModel.onBiometric();
+                        viewModel.onBiometric();
                       },
                       icon: const Icon(Icons.fingerprint)),
               ],
@@ -106,7 +103,7 @@ class _MobileViewState extends State<MobileView> {
               width: 75.w,
               height: 75.h,
               onPressed: () {
-                widget.viewModel.onLogin();
+                viewModel.onLogin();
               },
               text: "",
               child: Icon(

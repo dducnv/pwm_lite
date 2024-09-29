@@ -46,6 +46,7 @@ HashMap languageEn = HashMap<dynamic, String>()
     HomeLangDifinition.yeuCauTinhNang: 'Feature request',
     HomeLangDifinition.cauHoiThuongGap: 'FAQs',
     HomeLangDifinition.phienBanNangCao: 'Advanced version',
+    HomeLangDifinition.yeuCauNgonNgu: 'Language request',
 
     //createAccount
     CreateAccountLangDif.taoTaiKhoan: "Create account",

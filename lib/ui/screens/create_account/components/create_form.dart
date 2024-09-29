@@ -28,9 +28,10 @@ class _CreateFormState extends State<CreateForm> with CreateAccountMixin {
       if (event.logicalKey == LogicalKeyboardKey.enter) {
         if (_formKey.currentState!.validate()) {
           widget.viewModel.handleAddAccount(context);
+          return KeyEventResult.handled;
         }
       }
-      return KeyEventResult.handled;
+      return KeyEventResult.ignored;
     };
   }
 

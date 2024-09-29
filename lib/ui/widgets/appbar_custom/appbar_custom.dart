@@ -1,4 +1,3 @@
-import 'package:cyber_safe/core/utils.dart';
 import 'package:cyber_safe/ui/resource/size_text_icon.dart';
 import 'package:flutter/material.dart';
 
