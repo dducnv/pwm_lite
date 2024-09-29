@@ -1,10 +1,10 @@
 name: cyber_safe
 description: "CyberSafe is a password manager that helps you to store your passwords securely. It uses the ObjectBox database to store the passwords and encrypts them using the AES algorithm. The app also supports biometric authentication and dark mode."
 publish_to: "none"
-version: 1.0.7+8
+version: 1.0.9+10
 
 environment:
-  sdk: ">=3.3.4 <4.0.0"
+  sdk: ^3.5.1
 
 dependencies:
   flutter:
@@ -46,7 +46,6 @@ dependencies:
   lottie: ^3.1.2
   bootstrap_icons: ^1.11.3
   flutter_native_splash: ^2.4.0
-  pie_chart: ^5.4.0
   package_info_plus: ^8.0.0
   password_strength_checker: ^1.2.3
   scrollable_positioned_list: ^0.3.8

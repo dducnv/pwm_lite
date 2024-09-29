@@ -29,9 +29,10 @@ class _MobileViewState extends State<MobileView> with UpdateAccountMixin {
       if (event.logicalKey == LogicalKeyboardKey.enter) {
         if (_formKey.currentState!.validate()) {
           widget.viewModel.handleUpdateAccount(context);
+          return KeyEventResult.handled;
         }
       }
-      return KeyEventResult.handled;
+      return KeyEventResult.ignored;
     };
   }
 

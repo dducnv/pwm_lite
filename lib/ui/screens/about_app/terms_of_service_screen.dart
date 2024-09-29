@@ -37,6 +37,14 @@ class _TermsOfServiceScreenState extends State<TermsOfServiceScreen> {
       pathFile = "assets/markdown/terms_of_service/zh_terms_of_service.md";
     } else if (appLang == AppLanguage.pt_br) {
       pathFile = "assets/markdown/terms_of_service/pt_br_terms_of_service.md";
+    } else if (appLang == AppLanguage.ms) {
+      pathFile = "assets/markdown/terms_of_service/ms_terms_of_service.md";
+    } else if (appLang == AppLanguage.id) {
+      pathFile = "assets/markdown/terms_of_service/id_terms_of_service.md";
+    } else if (appLang == AppLanguage.th) {
+      pathFile = "assets/markdown/terms_of_service/th_terms_of_service.md";
+    } else if (appLang == AppLanguage.ru) {
+      pathFile = "assets/markdown/terms_of_service/ru_terms_of_service.md";
     } else {
       pathFile = "assets/markdown/terms_of_service/en_terms_of_service.md";
     }

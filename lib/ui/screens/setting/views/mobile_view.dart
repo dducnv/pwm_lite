@@ -1,14 +1,14 @@
+import 'package:flutter/material.dart';
 import 'package:bootstrap_icons/bootstrap_icons.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:cyber_safe/core/utils.dart';
 import 'package:cyber_safe/ui/provider.dart';
 import 'package:cyber_safe/ui/resource/language/definitions.dart';
 import 'package:cyber_safe/ui/resource/size_text_icon.dart';
 import 'package:cyber_safe/ui/screens/setting/extensions.dart';
 import 'package:cyber_safe/ui/widgets.dart';
-import 'package:flutter/material.dart';
 import 'package:cyber_safe/ui/screens.dart';
 import 'package:cyber_safe/ui/screens/setting/widgets.dart';
-import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 
 class MobileView extends StatefulWidget {
   final SettingViewModel viewModel;

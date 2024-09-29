@@ -19,29 +19,6 @@ class MobileView extends StatefulWidget {
 }
 
 class _MobileViewState extends State<MobileView> with CreateAccountMixin {
-  final _formKey = GlobalKey<FormState>();
-  final focus = FocusNode();
-
-  @override
-  void initState() {
-    super.initState();
-    focus.onKeyEvent = (node, event) {
-      if (event.logicalKey == LogicalKeyboardKey.enter) {
-        if (_formKey.currentState!.validate()) {
-          widget.viewModel.handleAddAccount(context);
-        }
-      }
-      return KeyEventResult.handled;
-    };
-  }
-
-  @override
-  void dispose() {
-    focus.dispose();
-    _formKey.currentState?.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

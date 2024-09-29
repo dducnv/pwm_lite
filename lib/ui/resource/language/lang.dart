@@ -5,3 +5,7 @@ export './lang/ko_lang.dart';
 export './lang/ja_lang.dart';
 export './lang/zh_lang.dart';
 export './lang/pt_br_lang.dart';
+export './lang/th_lang.dart';
+export './lang/ru_lang.dart';
+export './lang/ms_lang.dart';
+export './lang/id_lang.dart';

@@ -1,8 +1,5 @@
-import 'package:cyber_safe/ui/resource/language/definitions.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:cyber_safe/core/utils.dart';
-import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 
 class ItemCoppyValue extends StatefulWidget {
   final bool isLastItem;

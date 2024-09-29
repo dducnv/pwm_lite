@@ -46,6 +46,7 @@ HashMap languageChina = HashMap<dynamic, String>()
     HomeLangDifinition.yeuCauTinhNang: '功能请求',
     HomeLangDifinition.cauHoiThuongGap: '常见问题',
     HomeLangDifinition.phienBanNangCao: '高级版本',
+    HomeLangDifinition.yeuCauNgonNgu: '语言请求',
 
     //createAccount
     CreateAccountLangDif.taoTaiKhoan: "创建账户",

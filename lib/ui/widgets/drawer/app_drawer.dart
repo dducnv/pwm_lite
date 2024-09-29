@@ -1,10 +1,11 @@
+import 'package:flutter/material.dart';
+import 'package:bootstrap_icons/bootstrap_icons.dart';
 import 'package:cyber_safe/core/utils.dart';
 import 'package:cyber_safe/main.dart';
 import 'package:cyber_safe/ui/resource.dart';
 import 'package:cyber_safe/ui/resource/language/definitions.dart';
 import 'package:cyber_safe/ui/resource/size_text_icon.dart';
 import 'package:cyber_safe/ui/route.dart';
-import 'package:flutter/material.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
@@ -148,6 +149,34 @@ class AppDrawer extends StatelessWidget {
                     "mailto:contact.ducnv@gmail.com?subject=[CyberSafe] Feature Request");
               },
             ),
+             ListTile(
+              leading: Icon(
+                Icons.translate,
+                size: 24.sp,
+              ),
+              title: Text(
+                getText(context, HomeLangDifinition.yeuCauNgonNgu),
+                style: drawerTitleStyle,
+              ),
+              onTap: () {
+                openUrl(
+                    "mailto:contact.ducnv@gmail.com?subject=[CyberSafe] Language Request");
+              },
+            ),
+            ListTile(
+              leading: Icon(
+                BootstrapIcons.github,
+                size: 24.sp,
+              ),
+              title: Text(
+                "Open Source on Github",
+                style: drawerTitleStyle,
+              ),
+              onTap: () {
+                openUrl(
+                    "https://github.com/dducnv/pwm_lite");
+              },
+            ),
             ListTile(
               leading: Icon(
                 Icons.privacy_tip,
@@ -174,6 +203,7 @@ class AppDrawer extends StatelessWidget {
                 Navigator.of(context).pushNamed(RoutePaths.termsOfServiceRoute);
               },
             ),
+            
           ],
         ));
   }

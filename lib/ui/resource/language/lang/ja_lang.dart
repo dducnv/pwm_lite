@@ -47,6 +47,7 @@ HashMap languageJapan = HashMap<dynamic, String>()
     HomeLangDifinition.yeuCauTinhNang: '機能リクエスト',
     HomeLangDifinition.cauHoiThuongGap: 'よくある質問',
     HomeLangDifinition.phienBanNangCao: '高度なバージョン',
+    HomeLangDifinition.yeuCauNgonNgu: '言語リクエスト',
 
     //Create Account
     CreateAccountLangDif.taoTaiKhoan:

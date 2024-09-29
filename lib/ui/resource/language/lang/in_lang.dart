@@ -48,6 +48,7 @@ HashMap languageIndia = HashMap<dynamic, String>()
     HomeLangDifinition.yeuCauTinhNang: 'सुविधा अनुरोध',
     HomeLangDifinition.cauHoiThuongGap: 'सामान्य प्रश्न',
     HomeLangDifinition.phienBanNangCao: 'उन्नत संस्करण',
+    HomeLangDifinition.yeuCauNgonNgu: 'भाषा अनुरोध',
 
     //createAccount
     CreateAccountLangDif.taoTaiKhoan: "खाता बनाएं",
