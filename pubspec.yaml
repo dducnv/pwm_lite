@@ -1,7 +1,7 @@
 name: cyber_safe
 description: "CyberSafe is a password manager that helps you to store your passwords securely. It uses the ObjectBox database to store the passwords and encrypts them using the AES algorithm. The app also supports biometric authentication and dark mode."
 publish_to: "none"
-version: 1.0.9+10
+version: 1.0.10+11
 
 environment:
   sdk: ^3.5.1
