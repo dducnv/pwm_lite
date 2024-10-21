@@ -17,7 +17,7 @@ dependencies:
   flutter_secure_storage: 9.2.2
   envied: 0.5.4+1
   #database
-  objectbox: 4.0.1
+  objectbox: 4.0.3
   objectbox_flutter_libs: any
   csv: 6.0.0
   #provider
