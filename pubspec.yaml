@@ -12,7 +12,7 @@ dependencies:
   logger: ^2.2.0
   cupertino_icons: ^1.0.8
   #security
-  crypto: 3.0.3
+  crypto: 3.0.6
   encrypt: 5.0.3
   flutter_secure_storage: 9.2.2
   envied: 0.5.4+1
