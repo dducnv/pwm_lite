@@ -1,3 +1,7 @@
+***
+This is the old source code. In the new improved version, I have changed many security methods, eliminating the use of a static encryption key. Instead, each device will generate its own unique key, making it safer and more secure. However, this source code still has reference value and will remain public.
+***
+
 # CyberSafe - Open Source Offline Password Manager
 
 ![CyberSafe Logo](https://lh3.googleusercontent.com/AmTkIuE2n6Nj2HcTBWn-2rfrvq9vAmU-LhJZtZeekp3a5M5pTqSjp0L4SB-DgMXGBEo)
